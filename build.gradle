@@ -23,8 +23,7 @@ dependencies {
     //JDA
     compile group: 'net.dv8tion', name: 'JDA', version: '3.8.3_463'
     //Command handler
-    //compile group: 'com.github.Repulser', name: 'jda-command', version: '1.1.1'
-    compile 'com.github.rainestormee:JDA-Command:1.1.2'
+    compile 'com.github.rainestormee:JDA-Command:1.1.5'
     //waiter
     compile 'com.jagrosh:jda-utilities:2.1.2'
     //Unirest for requests
