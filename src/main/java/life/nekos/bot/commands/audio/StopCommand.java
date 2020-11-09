@@ -13,48 +13,21 @@ import net.dv8tion.jda.core.entities.Message;
 import java.text.MessageFormat;
 
 import static life.nekos.bot.commons.checks.BotChecks.canReact;
-import static life.nekos.bot.commons.checks.UserChecks.audioPrems;
+import static life.nekos.bot.commons.checks.UserChecks.audioPerms;
 
 @CommandDescription(
         name = "Stop",
         triggers = {"stop", "quit", "disconnect"},
-        attributes = {@CommandAttribute(key = "music"), @CommandAttribute(key = "dm")},
+        attributes = {@CommandAttribute(key = "music", value = "requiresSameVoiceChannel requiresAudioPerms")},
         description = "Stops playback, clears queue, disconnects"
 )
 public class StopCommand implements Command {
+
     @Override
     public void execute(Message message, Object... args) {
         Models.statsUp("stop");
-        if (!VoiceHandler.inVoice(message)) {
-            message
-                    .getChannel()
-                    .sendMessage(
-                            Formats.error(
-                                    "nu nya!~, You must join a voice channel to use this command. "
-                                            + Formats.NEKO_C_EMOTE))
-                    .queue();
-            return;
-        }
         GuildMusicManager musicManager = AudioHandler.getMusicManager(message.getGuild());
         if (musicManager.player.getPlayingTrack() != null) {
-            if (!VoiceHandler.sameVoice(message)) {
-                message
-                        .getChannel()
-                        .sendMessage(
-                                Formats.error(
-                                        "nu nya!~, You must join the channel im in to use this command. "
-                                                + Formats.NEKO_C_EMOTE))
-                        .queue();
-                return;
-            }
-            if (!audioPrems(message, musicManager.player.getPlayingTrack())) {
-                message
-                        .getChannel()
-                        .sendMessage(
-                                Formats.error(
-                                        "nu nya!~, You don't have permission to do this. " + Formats.NEKO_C_EMOTE))
-                        .queue();
-            }
             if (VoiceHandler.inVoice(message)) {
                 VoiceHandler.disconnectFromVoice(message.getMember().getVoiceState().getChannel());
                 message

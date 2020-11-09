@@ -11,26 +11,18 @@ import java.util.Collections;
 import java.util.List;
 
 import static life.nekos.bot.commons.checks.BotChecks.canReact;
-import static life.nekos.bot.commons.checks.UserChecks.audioPrems;
+import static life.nekos.bot.commons.checks.UserChecks.audioPerms;
 
 @CommandDescription(
         name = "Shuffle",
         triggers = {"shuffle", "mix"},
-        attributes = {@CommandAttribute(key = "music"), @CommandAttribute(key = "dm")},
+        attributes = {@CommandAttribute(key = "music", value = "requiresAudioPerms requiresSameVoiceChannel")},
         description = "shuffles the current queue."
 )
 public class ShuffleCommand implements Command {
+
+    @Override
     public void execute(Message event, Object... args) {
-        if (!event.getMember().getVoiceState().inVoiceChannel()) {
-            event
-                    .getChannel()
-                    .sendMessage(
-                            Formats.error(
-                                    "nu nya!~, You must join a voice channel to use the command. "
-                                            + Formats.NEKO_C_EMOTE))
-                    .queue();
-            return;
-        }
         if (AudioHandler.getMusicManager(event.getGuild()).scheduler.queue.isEmpty()) {
             event
                     .getChannel()
@@ -42,15 +34,6 @@ public class ShuffleCommand implements Command {
                                             .queue();
                             });
             return;
-        }
-        if (!audioPrems(
-                event, AudioHandler.getMusicManager(event.getGuild()).player.getPlayingTrack())) {
-            event
-                    .getChannel()
-                    .sendMessage(
-                            Formats.error(
-                                    "nu nya!~, You don't have permission to do this. " + Formats.NEKO_C_EMOTE))
-                    .queue();
         }
         Collections.shuffle((List<?>) AudioHandler.getMusicManager(event.getGuild()).scheduler.queue);
         event

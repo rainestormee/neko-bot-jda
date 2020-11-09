@@ -19,14 +19,16 @@ import static life.nekos.bot.audio.AudioHandler.getTimestamp;
 @CommandDescription(
         name = "Playing",
         triggers = {"np", "playing", "now_playing", "song"},
-        attributes = {@CommandAttribute(key = "music"), @CommandAttribute(key = "dm")},
+        attributes = {@CommandAttribute(key = "music")},
         description = "Shows info on the playing track"
 )
 public class NowPlayingCommand implements Command {
+
+    @Override
     public void execute(Message event, Object... args) {
-        AudioTrack Track = AudioHandler.getMusicManager(event.getGuild()).player.getPlayingTrack();
-        if (Track != null) {
-            User user = (User) Track.getUserData();
+        AudioTrack track = AudioHandler.getMusicManager(event.getGuild()).player.getPlayingTrack();
+        if (track != null) {
+            User user = (User) track.getUserData();
             MessageEmbed msg =
                     new EmbedBuilder()
                             .setAuthor(
@@ -37,9 +39,9 @@ public class NowPlayingCommand implements Command {
                                     Formats.info("Now Playing " + Formats.PLAY_EMOTE),
                                     MessageFormat.format(
                                             "Track: {0}\nLength: {1}/{2}\nQueued by: {3}",
-                                            Track.getInfo().title,
-                                            getTimestamp(Track.getPosition()),
-                                            getTimestamp(Track.getDuration()),
+                                            track.getInfo().title,
+                                            getTimestamp(track.getPosition()),
+                                            getTimestamp(track.getDuration()),
                                             user.getName()),
                                     false)
                             .build();

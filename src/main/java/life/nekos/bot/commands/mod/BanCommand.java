@@ -36,8 +36,6 @@ public class BanCommand implements Command {
             return;
         }
         Member m = message.getMentionedMembers().get(0);
-        m.getGuild().getController().ban(m, 7).queue(mm -> {
-            message.getTextChannel().sendMessage(Formats.info("Banned " + m.getEffectiveName() + ", Nya~")).queue();
-        });
+        m.getGuild().getController().ban(m, 7).queue(mm -> message.getTextChannel().sendMessage(Formats.info("Banned " + m.getEffectiveName() + ", Nya~")).queue());
     }
 }

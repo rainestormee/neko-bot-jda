@@ -1,6 +1,5 @@
 package life.nekos.bot.commands.bot;
 
-import com.github.rainestormee.jdacommand.AbstractCommand;
 import com.github.rainestormee.jdacommand.CommandAttribute;
 import com.github.rainestormee.jdacommand.CommandDescription;
 import life.nekos.bot.Command;
@@ -85,59 +84,32 @@ public class HelpCommand implements Command {
         Map<String, Long> stats = Models.getStats();
         EmbedBuilder em = new EmbedBuilder();
 
-        HashMap<String, StringBuilder> builders =
-                new HashMap<String, StringBuilder>() {
-                    {
+        HashMap<String, StringBuilder> builders = new HashMap<>();
+        categories.forEach((key, value) -> builders.put(key, new StringBuilder()));
 
-                    }
-                };
+        NekoBot.commandHandler.getCommands().forEach(c -> {
+            String category = c.hasAttribute("OwnerOnly") ? "owner" : builders.keySet().stream().filter(c::hasAttribute).findFirst().orElse("");
+            builders.get(category).append(String.format(
+                    "**%s%s**: %s\n***Triggers***: `%s`\n\n",
+                    gp,
+                    c.getDescription().name(),
+                    c.getDescription().description(),
+                    String.join(", ", c.getDescription().triggers())));
+        });
 
-        for (Map.Entry<String, String> category : categories.entrySet()) {
-            builders.put(category.getKey(), new StringBuilder());
-        }
-
-        for (AbstractCommand<Message> c : (NekoBot.commandHandler.getCommands())) {
-            String category;
-
-            if (!c.hasAttribute("OwnerOnly")) {
-                category = builders.keySet().stream().filter(c::hasAttribute).findFirst().get();
-            } else {
-                category = "owner";
+        builders.forEach((k, v) -> {
+            if (v.toString().equals("owner") && !MiscChecks.isOwner(trigger)) return;
+            if ((trigger.getTextChannel() != null) && !trigger.getTextChannel().isNSFW() && v.toString().equals("nsfw")) {
+                v.setLength(0);
+                v.append("Use help in an NSFW channel to see these commands");
             }
-            builders
-                    .get(category)
-                    .append(
-                            String.format(
-                                    "**%s%s**: %s\n***Triggers***: `%s`\n\n",
-                                    gp,
-                                    c.getDescription().name(),
-                                    c.getDescription().description(),
-                                    String.join(", ", c.getDescription().triggers())));
-        }
-
-        for (Map.Entry<String, StringBuilder> builder : builders.entrySet()) {
-            if (builder.getKey().equals("owner") && !MiscChecks.isOwner(trigger)) {
-                continue;
-            }
-            if (trigger.getTextChannel() != null) {
-                if (!trigger.getTextChannel().isNSFW() && builder.getKey().equals("nsfw")) {
-                    builder.getValue().setLength(0);
-                    builder.getValue().append("Use help in an NSFW channel to see these commands");
-                }
-            }
-            em.addField(
-                    categories.get(builder.getKey()) + " " + titleCase(builder.getKey()),
-                    builder.getValue().toString(),
-                    false);
-        }
+            em.addField(k + " " + titleCase(k), v.toString(), false);
+        });
 
         em.setColor(Colors.getDominantColor(trigger.getAuthor()));
         em.addField(Formats.LINK_EMOTE + " Links", Formats.LING_MSG, false);
         em.addField("Times help used\n", stats.get("help").toString(), false);
-        em.setFooter(
-                MessageFormat.format(
-                        "Help requested by {0} | {1}", trigger.getAuthor().getName(), Misc.now()),
-                trigger.getAuthor().getEffectiveAvatarUrl());
+        em.setFooter(MessageFormat.format("Help requested by {0} | {1}", trigger.getAuthor().getName(), Misc.now()), trigger.getAuthor().getEffectiveAvatarUrl());
         em.setAuthor(
                 trigger.getJDA().getSelfUser().getName() + " help " + Formats.MAGIC_EMOTE,
                 trigger.getJDA().asBot().getInviteUrl(Permission.ADMINISTRATOR),
@@ -146,21 +118,12 @@ public class HelpCommand implements Command {
 
         if (args.length() != 0) {
             Command command = (Command) NekoBot.commandHandler.findCommand(args.split(" ")[0]);
-            if (args.toLowerCase().endsWith("--dm") && command == null) {
-                trigger.getAuthor().openPrivateChannel().queue(pm -> pm.sendMessage(embed).queue());
-                trigger.addReaction("📬").queue();
+            if (args.toLowerCase().endsWith("--dm")) {
+                trigger.getAuthor().openPrivateChannel().queue(pm -> pm.sendMessage(command == null ? embed : comHelp(trigger, command, gp)).queue());
                 return;
             }
             if (command == null || !isCom(command)) {
                 trigger.getChannel().sendMessage("That command does not exist.").queue();
-                return;
-            }
-            if (args.toLowerCase().endsWith("--dm")) {
-                trigger
-                        .getAuthor()
-                        .openPrivateChannel()
-                        .queue(pm -> pm.sendMessage(comHelp(trigger, command, gp)).queue());
-                trigger.addReaction("📬").queue();
                 return;
             }
             trigger.getChannel().sendMessage(comHelp(trigger, command, gp)).queue();

@@ -6,62 +6,25 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import life.nekos.bot.Command;
 import life.nekos.bot.audio.AudioHandler;
 import life.nekos.bot.audio.GuildMusicManager;
-import life.nekos.bot.commons.Colors;
 import life.nekos.bot.commons.Formats;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.Message;
 
 import static life.nekos.bot.commons.checks.BotChecks.canReact;
-import static life.nekos.bot.commons.checks.UserChecks.audioPrems;
-import static life.nekos.bot.commons.checks.UserChecks.isDonor;
+import static life.nekos.bot.commons.checks.UserChecks.audioPerms;
 
 @CommandDescription(
         name = "Repeat",
         triggers = {"loop", "repeat"},
-        attributes = {@CommandAttribute(key = "music"), @CommandAttribute(key = "dm")},
+        attributes = {@CommandAttribute(key = "music"), @CommandAttribute(key = "PayWall")},
         description =
                 "Set repeat for a track, or --all to loop the entire queue\nThis is a Patreon only command"
 )
 public class RepeatCommand implements Command {
+
     @Override
     public void execute(Message message, Object... args) {
-        if (!isDonor(message.getAuthor())) {
-            message
-                    .getChannel()
-                    .sendMessage(
-                            new EmbedBuilder()
-                                    .setAuthor(
-                                            message.getJDA().getSelfUser().getName(),
-                                            message.getJDA().asBot().getInviteUrl(Permission.ADMINISTRATOR),
-                                            message.getJDA().getSelfUser().getEffectiveAvatarUrl())
-                                    .setColor(Colors.getEffectiveColor(message))
-                                    .setDescription(
-                                            Formats.error(
-                                                    " Sorry this command is only available to our Patrons.\n"
-                                                            + message
-                                                            .getJDA()
-                                                            .asBot()
-                                                            .getShardManager()
-                                                            .getEmoteById(475801484282429450L).getAsMention()
-
-                                                            + "[Join Today](https://www.patreon.com/bePatron?c=1830314&rid=2826101)"))
-                                    .build())
-                    .queue();
-            return;
-        }
         GuildMusicManager musicManager = AudioHandler.getMusicManager(message.getGuild());
         String[] arg = ((String) args[0]).trim().split(" ");
-        if (!message.getMember().getVoiceState().inVoiceChannel()) {
-            message
-                    .getChannel()
-                    .sendMessage(
-                            Formats.error(
-                                    "nu nya!~, You must join a voice channel to use the command. "
-                                            + Formats.NEKO_C_EMOTE))
-                    .queue();
-            return;
-        }
         if (musicManager.scheduler.queue.isEmpty()) {
             message
                     .getChannel()
@@ -78,7 +41,7 @@ public class RepeatCommand implements Command {
             return;
         }
         AudioTrack Track = musicManager.player.getPlayingTrack();
-        if (!audioPrems(message, Track)) {
+        if (!audioPerms(message, Track)) {
             message
                     .getChannel()
                     .sendMessage(

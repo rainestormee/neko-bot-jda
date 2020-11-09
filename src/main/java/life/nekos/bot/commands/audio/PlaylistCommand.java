@@ -15,21 +15,13 @@ import java.text.MessageFormat;
 @CommandDescription(
         name = "playlist",
         triggers = {"playlist", "pl"},
-        attributes = {@CommandAttribute(key = "music"), @CommandAttribute(key = "dm")},
+        attributes = {@CommandAttribute(key = "music", value = "requiresVoiceChannel")},
         description = "play some playlist url | search term"
 )
 public class PlaylistCommand implements Command {
+
+    @Override
     public void execute(Message event, Object... args) {
-        if (!event.getMember().getVoiceState().inVoiceChannel()) {
-            event
-                    .getChannel()
-                    .sendMessage(
-                            Formats.error(
-                                    "nu nya!~, You must join a voice channel to use the command. "
-                                            + Formats.NEKO_C_EMOTE))
-                    .queue();
-            return;
-        }
         if (args.length == 0) {
             event
                     .getChannel()

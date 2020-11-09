@@ -26,10 +26,11 @@ import static life.nekos.bot.audio.AudioHandler.getTimestamp;
 @CommandDescription(
         name = "queue",
         triggers = {"q", "queue"},
-        attributes = {@CommandAttribute(key = "music"), @CommandAttribute(key = "dm")},
+        attributes = {@CommandAttribute(key = "music")},
         description = "Shows the audio queue"
 )
 public class QueueCommand implements Command {
+
     Paginator.Builder pbuilder =
             new Paginator.Builder()
                     .setColumns(1)
@@ -40,6 +41,7 @@ public class QueueCommand implements Command {
                     .setEventWaiter(waiter)
                     .setTimeout(1, TimeUnit.MINUTES);
 
+    @Override
     public void execute(Message event, Object... args) {
         Guild guild = event.getGuild();
         Queue<AudioTrack> queue = AudioHandler.getMusicManager(guild).scheduler.queue;

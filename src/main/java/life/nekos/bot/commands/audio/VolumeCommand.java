@@ -16,80 +16,26 @@ import net.dv8tion.jda.core.entities.Message;
 import java.text.MessageFormat;
 
 import static life.nekos.bot.commons.checks.BotChecks.canReact;
-import static life.nekos.bot.commons.checks.UserChecks.audioPrems;
+import static life.nekos.bot.commons.checks.UserChecks.audioPerms;
 import static life.nekos.bot.commons.checks.UserChecks.isDonor;
 
 @CommandDescription(
         name = "Volume",
         triggers = {"Volume", "v", "vol"},
-        attributes = {@CommandAttribute(key = "music"), @CommandAttribute(key = "dm")},
+        attributes = {@CommandAttribute(key = "music", value = "requiresSameVoiceChannel"), @CommandAttribute(key = "PayWall")},
         description = "sets the volume.\nThis is a Patreon only command"
 )
 public class VolumeCommand implements Command {
     public void execute(Message message, Object... args) {
         Models.statsUp("volume");
-        if (!isDonor(message.getAuthor())) {
-            message
-                    .getChannel()
-                    .sendMessage(
-                            new EmbedBuilder()
-                                    .setAuthor(
-                                            message.getJDA().getSelfUser().getName(),
-                                            message.getJDA().asBot().getInviteUrl(Permission.ADMINISTRATOR),
-                                            message.getJDA().getSelfUser().getEffectiveAvatarUrl())
-                                    .setColor(Colors.getEffectiveColor(message))
-                                    .setDescription(
-                                            Formats.error(
-                                                    " Sorry this command is only available to our Patrons.\n"
-                                                            + message
-                                                            .getJDA()
-                                                            .asBot()
-                                                            .getShardManager()
-                                                            .getEmoteById(475801484282429450L).getAsMention()
-
-                                                            + "[Join Today](https://www.patreon.com/bePatron?c=1830314&rid=2826101)"))
-                                    .build())
-                    .queue();
-            return;
-        }
-        if (!message.getMember().getVoiceState().inVoiceChannel()) {
-            message
-                    .getChannel()
-                    .sendMessage(
-                            Formats.error(
-                                    "nu nya!~, You must join a voice channel to use this command. "
-                                            + Formats.NEKO_C_EMOTE))
-                    .queue();
-            return;
-        }
         GuildMusicManager musicManager = AudioHandler.getMusicManager(message.getGuild());
         if (musicManager.player.getPlayingTrack() != null) {
-            if (!VoiceHandler.sameVoice(message)) {
-                message
-                        .getChannel()
-                        .sendMessage(
-                                Formats.error(
-                                        "nu nya!~, You must join the channel im in to use this command. "
-                                                + Formats.NEKO_C_EMOTE))
-                        .queue();
-                return;
-            }
-            if (!audioPrems(message, musicManager.player.getPlayingTrack())) {
-                message
-                        .getChannel()
-                        .sendMessage(
-                                Formats.error(
-                                        "nu nya!~, You don't have permission to do this. " + Formats.NEKO_C_EMOTE))
-                        .queue();
-            }
 
             int vol = musicManager.player.getVolume();
             if (args.length > 0) {
                 String[] arg = ((String) args[0]).trim().split(" ");
                 try {
-                    int nvol = Integer.parseInt(arg[0]);
-                    if (nvol > 100) nvol = 100;
-                    int nvolf = nvol;
+                    int nvol = Math.min(100, Integer.parseInt(arg[0]));
                     musicManager.player.setVolume(nvol);
                     System.out.println("???");
                     message
@@ -105,7 +51,7 @@ public class VolumeCommand implements Command {
                                                     .addReaction(
                                                             message1
                                                                     .getJDA().asBot().getShardManager()
-                                                                    .getEmoteById(Formats.getEmoteID(Formats.getVolEmote(nvolf))))
+                                                                    .getEmoteById(Formats.getEmoteID(Formats.getVolEmote(nvol))))
                                                     .queue();
                                         }
                                     });

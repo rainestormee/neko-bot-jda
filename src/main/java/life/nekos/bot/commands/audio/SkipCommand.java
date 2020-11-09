@@ -16,26 +16,18 @@ import java.text.MessageFormat;
 
 import static life.nekos.bot.audio.AudioHandler.getTimestamp;
 import static life.nekos.bot.commons.checks.BotChecks.canReact;
-import static life.nekos.bot.commons.checks.UserChecks.audioPrems;
+import static life.nekos.bot.commons.checks.UserChecks.audioPerms;
 
 @CommandDescription(
         name = "skip",
         triggers = {"skip", "s", "next"},
-        attributes = {@CommandAttribute(key = "music"), @CommandAttribute(key = "dm")},
+        attributes = {@CommandAttribute(key = "music", value = "requiresSameVoiceChannel requiresAudioPerms")},
         description = "skips the current track."
 )
 public class SkipCommand implements Command {
+
+    @Override
     public void execute(Message event, Object... args) {
-        if (!event.getMember().getVoiceState().inVoiceChannel()) {
-            event
-                    .getChannel()
-                    .sendMessage(
-                            Formats.error(
-                                    "nu nya!~, You must join a voice channel to use the command. "
-                                            + Formats.NEKO_C_EMOTE))
-                    .queue();
-            return;
-        }
         if (AudioHandler.getMusicManager(event.getGuild()).scheduler.queue.isEmpty()) {
             event
                     .getChannel()
@@ -49,17 +41,6 @@ public class SkipCommand implements Command {
                                             .queue();
                                 }
                             });
-            return;
-        }
-        AudioTrack Track = AudioHandler.getMusicManager(event.getGuild()).player.getPlayingTrack();
-
-        if (!audioPrems(event, Track)) {
-            event
-                    .getChannel()
-                    .sendMessage(
-                            Formats.error(
-                                    "nu nya!~, You don't have permission to do this. " + Formats.NEKO_C_EMOTE))
-                    .queue();
             return;
         }
 
@@ -76,8 +57,8 @@ public class SkipCommand implements Command {
                                         .queue();
                             }
                         });
-        AudioTrack Trackk = AudioHandler.getMusicManager(event.getGuild()).player.getPlayingTrack();
-        User user = (User) Trackk.getUserData();
+        AudioTrack track = AudioHandler.getMusicManager(event.getGuild()).player.getPlayingTrack();
+        User user = (User) track.getUserData();
         MessageEmbed msg =
                 new EmbedBuilder()
                         .setAuthor(
@@ -88,9 +69,9 @@ public class SkipCommand implements Command {
                                 Formats.info("Now Playing " + Formats.PLAY_EMOTE),
                                 MessageFormat.format(
                                         "Track: {0}\nLength: {1}/{2}\nQueued by: {3}",
-                                        Trackk.getInfo().title,
-                                        getTimestamp(Trackk.getPosition()),
-                                        getTimestamp(Trackk.getDuration()),
+                                        track.getInfo().title,
+                                        getTimestamp(track.getPosition()),
+                                        getTimestamp(track.getDuration()),
                                         user.getName()),
                                 false)
                         .build();

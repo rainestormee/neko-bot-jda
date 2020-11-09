@@ -3,10 +3,13 @@ package life.nekos.bot.handlers;
 import com.github.rainestormee.jdacommand.CommandHandler;
 import life.nekos.bot.Command;
 import life.nekos.bot.NekoBot;
+import life.nekos.bot.audio.AudioHandler;
+import life.nekos.bot.audio.VoiceHandler;
 import life.nekos.bot.commons.Colors;
 import life.nekos.bot.commons.Formats;
 import life.nekos.bot.commons.checks.BotChecks;
 import life.nekos.bot.commons.checks.MiscChecks;
+import life.nekos.bot.commons.checks.UserChecks;
 import life.nekos.bot.commons.db.Models;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.JDA;
@@ -131,7 +134,22 @@ public class RaineCommandHandler extends ListenerAdapter {
                 }
             }
 
-
+            if (command.hasAttribute("music")) {
+                boolean sameChannel = command.checkAttribute("music", "requiresSameVoiceChannel");
+                if (command.checkAttribute("music", "requiresVoiceChannel") || sameChannel) {
+                    if (!message.getMember().getVoiceState().inVoiceChannel()) {
+                        message.getChannel().sendMessage(Formats.error("nu nya!~, You must join a voice channel to use the command. " + Formats.NEKO_C_EMOTE)).queue();
+                        return;
+                    }
+                    if (sameChannel && !VoiceHandler.sameVoice(message)) {
+                        message.getChannel().sendMessage(Formats.error("nu nya!~, You must join the channel im in to use this command. " + Formats.NEKO_C_EMOTE)).queue();
+                        return;
+                    }
+                } else if (command.checkAttribute("music", "requiresAudioPerms") && !UserChecks.audioPerms(event.getMessage(), AudioHandler.getMusicManager(event.getGuild()).player.getPlayingTrack())) {
+                    event.getChannel().sendMessage(Formats.error("nu nya!~, You don't have permission to do this. " + Formats.NEKO_C_EMOTE)).queue();
+                    return;
+                }
+            }
 
             try {
                 Formats.logCommand(event.getMessage());

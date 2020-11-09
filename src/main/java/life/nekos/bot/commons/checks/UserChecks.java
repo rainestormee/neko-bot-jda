@@ -37,7 +37,7 @@ public class UserChecks {
         } else return false;
     }
 
-    public static boolean audioPrems(Message msg, AudioTrack track) {
+    public static boolean audioPerms(Message msg, AudioTrack track) {
         User user = (User) track.getUserData();
         if (isMod(msg)) {
             return true;

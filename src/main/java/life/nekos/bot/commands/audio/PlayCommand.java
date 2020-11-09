@@ -18,22 +18,15 @@ import java.text.MessageFormat;
 @CommandDescription(
         name = "play",
         triggers = {"play", "p"},
-        attributes = {@CommandAttribute(key = "music"), @CommandAttribute(key = "dm")},
+        attributes = {@CommandAttribute(key = "music", value = "requiresVoiceChannel")},
         description = "play some url | search term"
 )
 public class PlayCommand implements Command {
+
+    @Override
     public void execute(Message message, Object... argo) {
         String args = (String) argo[0];
-        if (!message.getMember().getVoiceState().inVoiceChannel()) {
-            message
-                    .getChannel()
-                    .sendMessage(
-                            Formats.error(
-                                    "nu nya!~, You must join a voice channel to use the command. "
-                                            + Formats.NEKO_C_EMOTE))
-                    .queue();
-            return;
-        }
+
         if (!BotChecks.canConnect(message.getMember().getVoiceState().getChannel())) {
             message
                     .getChannel()
