@@ -16,6 +16,7 @@ import net.dv8tion.jda.core.entities.Message;
                 "Releases one of your nekos for others to catch  >.< (you can not catch a neko you relesaed)"
 )
 public class ReleaseCommand implements Command {
+
     @Override
     public void execute(Message message, Object... args) {
         Models.statsUp("release");

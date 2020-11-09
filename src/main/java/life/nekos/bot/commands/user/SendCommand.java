@@ -8,10 +8,7 @@ import life.nekos.bot.commons.Formats;
 import life.nekos.bot.commons.apis.Nekos;
 import life.nekos.bot.commons.db.Models;
 import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.PrivateChannel;
-import net.dv8tion.jda.core.entities.TextChannel;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.core.entities.*;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -21,12 +18,13 @@ import java.util.List;
         name = "SendCommand",
         triggers = {"send"},
         attributes = {
-                @CommandAttribute(key = "OwnerOnly", value = "no"),
-                @CommandAttribute(key = "dm", value = "no"),
+                @CommandAttribute(key = "OwnerOnly"),
+                @CommandAttribute(key = "dm"),
         },
         description = "SendCommand"
 )
 public class SendCommand implements Command {
+
     @Override
     public void execute(Message event, Object... argo) {
         String args = (String) argo[0];
@@ -40,88 +38,31 @@ public class SendCommand implements Command {
             users.add(author);
         }
         if (args.length() == 0) {
-            // no args send com help
+            return;
+            // TODO: no args therefore send command help
         }
-        switch (arg[0]) {
-            case "neko":
-                for (User m : users) {
-                    m.openPrivateChannel()
-                            .queue(
-                                    (PrivateChannel pm) -> {
-                                        try {
-                                            String neko = Nekos.getNeko();
-                                            pm.sendMessage(
-                                                    new EmbedBuilder()
-                                                            .setDescription(Formats.NEKO_C_EMOTE)
-                                                            .setTitle(
-                                                                    MessageFormat.format(
-                                                                            "hey {0}, {1} has sent you a {2}",
-                                                                            m.getName(), event.getAuthor().getName(), arg[0]),
-                                                                    neko)
-                                                            .setColor(Colors.getDominantColor(m))
-                                                            .setImage(neko)
-                                                            .build())
-                                                    .queue(
-                                                            null,
-                                                            b ->
-                                                                    ch.sendMessage(
-                                                                            MessageFormat.format(
-                                                                                    "hey, This {0} {1} has me blocked or there filter turned on \uD83D\uDD95",
-                                                                                    "whore", m.getName()))
-                                                                            .queue());
 
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                    },
-                                    e -> {
-                                        e.printStackTrace();
-                                    });
-                }
-
-                ch.sendMessage(MessageFormat.format("Good job {0}", event.getAuthor().getAsMention()))
-                        .queue();
-                break;
-            case "lewd":
-                for (User m : users) {
-                    m.openPrivateChannel()
-                            .queue(
-                                    (PrivateChannel pm) -> {
-                                        try {
-                                            String neko = Nekos.getNeko();
-                                            pm.sendMessage(
-                                                    new EmbedBuilder()
-                                                            .setDescription(Formats.NEKO_C_EMOTE)
-                                                            .setTitle(
-                                                                    MessageFormat.format(
-                                                                            "hey {0}, {1} has sent you a {2}",
-                                                                            m.getName(), event.getAuthor().getName(), arg[0]),
-                                                                    neko)
-                                                            .setColor(Colors.getDominantColor(m))
-                                                            .setImage(neko)
-                                                            .build())
-                                                    .queue(
-                                                            null,
-                                                            b ->
-                                                                    ch.sendMessage(
-                                                                            MessageFormat.format(
-                                                                                    "hey, This {0} has me blocked or there filter turned on \uD83D\uDD95",
-                                                                                    m.getName()))
-                                                                            .queue());
-
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                    },
-                                    Throwable::printStackTrace);
-                }
-
-                ch.sendMessage(MessageFormat.format("Good job {0}", event.getAuthor().getAsMention()))
-                        .queue();
-                break;
-            default:
-                // send com help
-
+        String neko;
+        String type;
+        try {
+            if (arg[0].equals("neko")) {
+                neko = Nekos.getNeko();
+            } else if (arg[0].equals("lewd")) {
+                neko = Nekos.getLewd();
+            } else {
+                return;
+            }
+            type = arg[0];
+            users.forEach(m -> {
+                MessageEmbed embed = new EmbedBuilder().setDescription(Formats.NEKO_C_EMOTE)
+                        .setTitle(MessageFormat.format("hey {0}, {1} has sent you a {2}", m.getName(), event.getAuthor().getName(), arg[0]), type)
+                        .setColor(Colors.getDominantColor(m))
+                        .setImage(neko)
+                        .build();
+                m.openPrivateChannel().queue(pc -> pc.sendMessage(embed).queue(null, (a) -> ch.sendMessage(MessageFormat.format("hey, This {0} {1} has me blocked or there filter turned on \uD83D\uDD95", "whore", m.getName())).queue()), Throwable::printStackTrace);
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

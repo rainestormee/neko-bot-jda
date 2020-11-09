@@ -25,7 +25,7 @@ import static life.nekos.bot.NekoBot.waiter;
         description = "Global leaderboard, lb nekos or lb levels"
 )
 public class LbCommand implements Command {
-    private Paginator.Builder pbuilder =
+    private final Paginator.Builder pbuilder =
             new Paginator.Builder()
                     .setColumns(1)
                     .setItemsPerPage(4)
