@@ -19,25 +19,15 @@ import java.text.MessageFormat;
         description = "bot and support guild links -.o"
 )
 public class InviteCommand implements Command {
+
     @Override
     public void execute(Message trigger, Object... args) {
         Models.statsUp("invite");
-        trigger
-                .getTextChannel()
-                .sendMessage(
-                        new EmbedBuilder()
-                                .setColor(Colors.getRndColor())
-                                .setAuthor(
-                                        trigger.getJDA().getSelfUser().getName(),
-                                        trigger.getJDA().getSelfUser().getEffectiveAvatarUrl(),
-                                        trigger.getJDA().getSelfUser().getEffectiveAvatarUrl())
-                                .setDescription(Formats.LING_MSG)
-                                .setFooter(
-                                        MessageFormat.format(
-                                                "Requested by {0} | {1}",
-                                                trigger.getMember().getEffectiveName(), Misc.now()),
-                                        trigger.getAuthor().getEffectiveAvatarUrl())
-                                .build())
+        trigger.getTextChannel().sendMessage(new EmbedBuilder().setColor(Colors.getRndColor())
+                .setAuthor(trigger.getJDA().getSelfUser().getName(), trigger.getJDA().getSelfUser().getEffectiveAvatarUrl(), trigger.getJDA().getSelfUser().getEffectiveAvatarUrl())
+                .setDescription(Formats.LING_MSG)
+                .setFooter(MessageFormat.format("Requested by {0} | {1}", trigger.getMember().getEffectiveName(), Misc.now()), trigger.getAuthor().getEffectiveAvatarUrl())
+                .build())
                 .queue();
     }
 }

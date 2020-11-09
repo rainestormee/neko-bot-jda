@@ -25,15 +25,7 @@ public class MemeCommand implements Command {
     public void execute(Message trigger, Object... args) {
         Models.statsUp("gecg");
         if (!trigger.getTextChannel().isNSFW()) {
-            trigger
-                    .getChannel()
-                    .sendMessage(
-                            new EmbedBuilder()
-                                    .setColor(Color.magenta)
-                                    .setDescription(
-                                            "Lewd nekos are shy nya, They can only be found in Discord nsfw channels")
-                                    .build())
-                    .queue();
+            trigger.getChannel().sendMessage(new EmbedBuilder().setColor(Color.magenta).setDescription("Lewd nekos are shy nya, They can only be found in Discord nsfw channels").build()).queue();
             return;
         }
         try {

@@ -19,34 +19,22 @@ import static life.nekos.bot.commons.apis.Nekos.getBall;
         description = "random why?"
 )
 public class BallCommand implements Command {
+
     @Override
     public void execute(Message trigger, Object... args) {
-
-        if (!((String) args[0]).endsWith("?")) {
-            trigger
-                    .getTextChannel()
-                    .sendMessage(
-                            Formats.error(
-                                    "Nuu, nya! That doesn't look like a question? didn't anyone teach you punctuation??"))
-                    .queue();
+        String question = (String) args[0];
+        if (!question.endsWith("?")) {
+            trigger.getTextChannel().sendMessage(Formats.error("Nuu, nya! That doesn't look like a question? didn't anyone teach you punctuation??")).queue();
             return;
         }
         try {
             String ball = getBall();
             JSONObject jsonObj = new JSONObject(ball);
             System.out.println(jsonObj.getString("url"));
-            trigger
-                    .getChannel()
-                    .sendMessage(
-                            new EmbedBuilder()
-                                    .setColor(Colors.getEffectiveColor(trigger))
-                                    .setAuthor(
-                                            "Magic \uD83C\uDFB1",
-                                            trigger.getJDA().asBot().getInviteUrl(),
-                                            trigger.getAuthor().getEffectiveAvatarUrl())
-                                    .setDescription("❓: " + args[0] + "\nℹ: " + jsonObj.getString("response"))
-                                    .setImage(jsonObj.getString("url"))
-                                    .build())
+            trigger.getChannel().sendMessage(new EmbedBuilder().setColor(Colors.getEffectiveColor(trigger)).setAuthor("Magic \uD83C\uDFB1", trigger.getJDA().asBot().getInviteUrl(), trigger.getAuthor().getEffectiveAvatarUrl())
+                    .setDescription("❓: " + question + "\nℹ: " + jsonObj.getString("response"))
+                    .setImage(jsonObj.getString("url"))
+                    .build())
                     .queue();
         } catch (Exception e) {
             NekoBot.log.error("why broken? ", e);

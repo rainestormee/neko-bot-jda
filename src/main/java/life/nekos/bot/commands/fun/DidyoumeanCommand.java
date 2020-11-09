@@ -19,6 +19,7 @@ import java.util.regex.Pattern;
         description = "Did you mean?  dym something | something else"
 )
 public class DidyoumeanCommand implements Command {
+
     @Override
     public void execute(Message message, Object... argo) {
         String args = (String) argo[0];
@@ -28,11 +29,7 @@ public class DidyoumeanCommand implements Command {
         }
         String[] arg = args.split(Pattern.quote("|"));
         try {
-
-            message
-                    .getTextChannel()
-                    .sendFile(AlexApis.getGoolge(arg[0], arg[1]), "Did you Mean.png")
-                    .queue();
+            message.getTextChannel().sendFile(AlexApis.getGoolge(arg[0], arg[1]), "Did you Mean.png").queue();
         } catch (Exception e) {
             e.printStackTrace();
         }

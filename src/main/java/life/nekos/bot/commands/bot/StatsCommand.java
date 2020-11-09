@@ -16,12 +16,13 @@ import java.text.MessageFormat;
         name = "StatsCommand",
         triggers = {"stats"},
         attributes = {
-                @CommandAttribute(key = "OwnerOnly", value = "no"),
-                @CommandAttribute(key = "dm", value = "no"),
+                @CommandAttribute(key = "OwnerOnly"),
+                @CommandAttribute(key = "dm"),
         },
         description = "StatsCommand"
 )
 public class StatsCommand implements Command {
+
     @Override
     public void execute(Message message, Object... args) {
 

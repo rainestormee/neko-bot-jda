@@ -12,8 +12,6 @@ import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.exceptions.PermissionException;
 
 import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -27,61 +25,37 @@ import static life.nekos.bot.handlers.EventHandler.getShards;
         description = "Pong!"
 )
 public class PingCommand implements Command {
-    private Paginator.Builder pbuilder =
-            new Paginator.Builder()
-                    .setColumns(1)
-                    .setItemsPerPage(10)
-                    .showPageNumbers(true)
-                    .waitOnSinglePage(false)
-                    .useNumberedItems(true)
-                    .setFinalAction(
-                            m -> {
-                                try {
-                                    m.clearReactions().queue();
-                                } catch (PermissionException ex) {
-                                    m.delete().queue();
-                                }
-                            })
-                    .setEventWaiter(waiter)
-                    .setTimeout(1, TimeUnit.MINUTES);
+
+    private final Paginator.Builder builder = new Paginator.Builder().setColumns(1).setItemsPerPage(10).showPageNumbers(true).waitOnSinglePage(false).useNumberedItems(true).setFinalAction(
+            m -> {
+                try {
+                    m.clearReactions().queue();
+                } catch (PermissionException ex) {
+                    m.delete().queue();
+                }
+            })
+            .setEventWaiter(waiter)
+            .setTimeout(1, TimeUnit.MINUTES);
 
     @Override
     public void execute(Message trigger, Object... argo) {
         Models.statsUp("ping");
         String args = (String) argo[0];
-        if (args.toLowerCase().contains("--all")) {
-            List<String> pinglist = new ArrayList<>();
+        if (args.equalsIgnoreCase("--all")) {
             Map<JDA, JDA.Status> s = getShards().getStatuses();
-            pbuilder.clearItems();
-            for (Map.Entry<JDA, net.dv8tion.jda.core.JDA.Status> e : s.entrySet()) {
-                if (trigger.getJDA().getShardInfo().getShardId()
-                        == e.getKey().getShardInfo().getShardId()) {
-                    pbuilder.addItems(
-                            MessageFormat.format(
-                                    "Shard: {0}, Ping: {1}ms, Status: {2} (This Guild)\n",
-                                    e.getKey().getShardInfo().getShardId(), e.getKey().getPing(), e.getValue()));
-                } else {
-                    pbuilder.addItems(
-                            MessageFormat.format(
-                                    "Shard: {0}, Ping: {1}ms, Status: {2}\n",
-                                    e.getKey().getShardInfo().getShardId(), e.getKey().getPing(), e.getValue()));
-                }
-            }
-            Paginator p =
-                    pbuilder
-                            .setColor(Colors.getEffectiveColor(trigger))
-                            .setText(Formats.MAGIC_EMOTE + " **Global Pings** " + Formats.NEKO_C_EMOTE)
-                            .setUsers(trigger.getAuthor())
-                            .build();
+            builder.clearItems();
+            s.forEach((k, v) ->
+                    builder.addItems(MessageFormat.format("Shard: {0}, Ping: {1}ms, Status: {2} {3}\n",
+                            k.getShardInfo().getShardId(), k.getPing(), v,
+                            trigger.getJDA().getShardInfo().getShardId() == k.getShardInfo().getShardId() ? "(This guild)" : "")
+                    )
+            );
+
+            Paginator p = builder.setColor(Colors.getEffectiveColor(trigger)).setText(Formats.MAGIC_EMOTE + " **Global Pings** " + Formats.NEKO_C_EMOTE)
+                    .setUsers(trigger.getAuthor()).build();
             p.paginate(trigger.getChannel(), 1);
             return;
         }
-
-        trigger
-                .getChannel()
-                .sendMessage(
-                        "⏳ Ping: " + trigger.getJDA().getPing()
-                                + "ms")
-                .queue();
+        trigger.getChannel().sendMessage("⏳ Ping: " + trigger.getJDA().getPing() + "ms").queue();
     }
 }

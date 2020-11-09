@@ -12,8 +12,8 @@ import java.util.Random;
         name = "FilpCommand",
         triggers = {"test"},
         attributes = {
-                @CommandAttribute(key = "OwnerOnly", value = "no"),
-                @CommandAttribute(key = "dm", value = "no"),
+                @CommandAttribute(key = "OwnerOnly"),
+                @CommandAttribute(key = "dm"),
         },
         description = "FilpCommand"
 )

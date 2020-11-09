@@ -23,6 +23,7 @@ import static life.nekos.bot.commons.checks.MiscChecks.twoWeeks;
         description = "Cleans up all the bot and trigger messages"
 )
 public class CleanCommand implements Command {
+
     @Override
     public void execute(Message message, Object... args) {
         if (!canDelete(message)) {
@@ -33,33 +34,25 @@ public class CleanCommand implements Command {
             return;
         }
         message.delete().queue();
-        message
-                .getChannel()
-                .getHistory()
-                .retrievePast(100)
-                .queue(
-                        ms -> {
-                            List<Message> spam =
-                                    ms.stream().filter(m -> !twoWeeks(m) && isSpam(m)).collect(Collectors.toList());
-                            if (spam.isEmpty()) {
-                                return;
-                            }
-                            if (spam.size() <= 2) {
-                                spam.get(0).delete().queue();
-                                return;
-                            }
-                            try {
-                                message.getTextChannel().deleteMessages(spam).queue();
-                                message
-                                        .getChannel()
-                                        .sendMessage(
-                                                Formats.info(
-                                                        MessageFormat.format("I deleted {0} messages \\o/", spam.size())))
-                                        .queue(m -> m.delete().queueAfter(5, TimeUnit.SECONDS));
-                            } catch (Exception e) {
-                                NekoBot.log.error("some clean error ", e);
-                                message.getChannel().sendMessage(Formats.error("some error sry nya~")).queue();
-                            }
-                        });
+        message.getChannel().getHistory().retrievePast(100).queue(ms -> {
+            List<Message> spam = ms.stream().filter(m -> !twoWeeks(m) && isSpam(m)).collect(Collectors.toList());
+            if (spam.isEmpty()) {
+                return;
+            }
+            if (spam.size() <= 2) {
+                spam.get(0).delete().queue();
+                return;
+            }
+            try {
+                message.getTextChannel().deleteMessages(spam).queue();
+                message
+                        .getChannel()
+                        .sendMessage(Formats.info(MessageFormat.format("I deleted {0} messages \\o/", spam.size())))
+                        .queue(m -> m.delete().queueAfter(5, TimeUnit.SECONDS));
+            } catch (Exception e) {
+                NekoBot.log.error("some clean error ", e);
+                message.getChannel().sendMessage(Formats.error("some error sry nya~")).queue();
+            }
+        });
     }
 }

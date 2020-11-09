@@ -21,10 +21,9 @@ import java.util.List;
 @CommandDescription(
         name = "cuddle",
         triggers = "cuddle",
-        attributes = {@CommandAttribute(key = "dm", value = "true"), @CommandAttribute(key = "fun")},
+        attributes = {@CommandAttribute(key = "fun")},
         description = "cuddle someone \\o/ ~cuddle @user @user2"
 )
-@SuppressWarnings("unchecked")
 public class CuddleCommand implements Command {
     @Override
     public void execute(Message message, Object... args) {

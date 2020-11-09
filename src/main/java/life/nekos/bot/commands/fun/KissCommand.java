@@ -22,6 +22,7 @@ import java.util.List;
         description = "Kiss someone \\o/  ~kiss @user @user"
 )
 public class KissCommand implements Command {
+
     @Override
     public void execute(Message message, Object... args) {
         Models.statsUp("kiss");

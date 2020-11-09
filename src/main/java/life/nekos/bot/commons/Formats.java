@@ -201,6 +201,7 @@ public class Formats {
     public static String MAGIC_EMOTE = "✨";
     public static String LEVEL_EMOTE = "<:lvl:380022567676805122>";
     public static String DATE_EMOTE = "\uD83D\uDCC5";
+    public static String NOTES_EMOTE = "\uD83C\uDFB6";
     public static String INFO_EMOTE = "<:info:380250960951246858>";
     public static String PATREON_EMOTE = "<:p_:475801484282429450>";
     public static String LING_MSG =

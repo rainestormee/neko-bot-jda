@@ -16,7 +16,7 @@ import java.text.MessageFormat;
 @CommandDescription(
         name = "ColorCommand",
         triggers = {"color", "colour"},
-        attributes = {@CommandAttribute(key = "fun")},
+        attributes = {@CommandAttribute(key = "fun"), @CommandAttribute(key = "dm")},
         description = "ColorCommand"
 )
 public class ColorCommand implements Command {
@@ -29,26 +29,16 @@ public class ColorCommand implements Command {
             String hex = String.format("%02x%02x%02x", c.getRed(), c.getGreen(), c.getBlue());
             try {
                 JSONObject res = AlexApis.getColor(hex);
-                message
-                        .getTextChannel()
-                        .sendMessage(
-                                new EmbedBuilder()
-                                        .setDescription(
-                                                Formats.info(
-                                                        MessageFormat.format(
-                                                                "Color info for:\nUser: {3}\nName: {0}\n"
-                                                                        + "Hex: {1}\n"
-                                                                        + "RGB: {2}",
-                                                                res.getString("name"),
-                                                                res.getString("hex"),
-                                                                res.getString("rgb"),
-                                                                message.getMentionedMembers().get(0).getEffectiveName())))
-                                        .setColor(c)
-                                        .setImage(res.getString("image"))
-                                        .setFooter("Api provided by AlexFlipnote", null)
-                                        .build())
-                        .queue();
-
+                message.getTextChannel().sendMessage(new EmbedBuilder()
+                        .setDescription(Formats.info(MessageFormat.format(
+                                "Color info for:\nUser: {3}\nName: {0}\n"
+                                        + "Hex: {1}\n"
+                                        + "RGB: {2}",
+                                res.getString("name"),
+                                res.getString("hex"),
+                                res.getString("rgb"),
+                                message.getMentionedMembers().get(0).getEffectiveName())))
+                        .setColor(c).setImage(res.getString("image")).setFooter("Api provided by AlexFlipnote", null).build()).queue();
             } catch (Exception e) {
                 e.printStackTrace();
             }

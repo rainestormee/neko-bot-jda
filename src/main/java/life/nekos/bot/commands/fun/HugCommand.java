@@ -21,10 +21,11 @@ import java.util.List;
 @CommandDescription(
         name = "hug",
         triggers = "hug",
-        attributes = {@CommandAttribute(key = "dm", value = "true"), @CommandAttribute(key = "fun")},
+        attributes = {@CommandAttribute(key = "fun")},
         description = "Hug someone \\o/ ~hug @user @user2"
 )
 public class HugCommand implements Command {
+
     @Override
     public void execute(Message message, Object... args) {
         Models.statsUp("hug");

@@ -29,7 +29,7 @@ public class HelpCommand implements Command {
     private final HashMap<String, String> categories =
             new HashMap<String, String>() {
                 {
-                    put("music", "\uD83C\uDFB6");
+                    put("music", Formats.NOTES_EMOTE);
                     put("bot", Formats.BOT_EMOTE);
                     put("user", Formats.USER_EMOTE);
                     put("fun", Formats.MAGIC_EMOTE);

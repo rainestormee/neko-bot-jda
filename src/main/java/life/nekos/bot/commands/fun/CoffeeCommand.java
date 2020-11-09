@@ -22,15 +22,12 @@ public class CoffeeCommand implements Command {
     public void execute(Message trigger, Object... args) {
         Models.statsUp("coffee");
         try {
-            trigger
-                    .getChannel()
-                    .sendMessage(
-                            new EmbedBuilder()
-                                    .setDescription("coffee \\o/")
-                                    .setColor(Colors.getEffectiveColor(trigger))
-                                    .setImage(AlexApis.getCoffee())
-                                    .setFooter("Api provided by AlexFlipnote", null)
-                                    .build())
+            trigger.getChannel().sendMessage(new EmbedBuilder()
+                    .setDescription("coffee \\o/")
+                    .setColor(Colors.getEffectiveColor(trigger))
+                    .setImage(AlexApis.getCoffee())
+                    .setFooter("Api provided by AlexFlipnote", null)
+                    .build())
                     .queue();
         } catch (Exception e) {
             trigger.getChannel().sendMessage(Formats.error("oh nu, something went wrong :(")).queue();
