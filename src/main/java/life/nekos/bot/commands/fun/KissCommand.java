@@ -1,6 +1,6 @@
 package life.nekos.bot.commands.fun;
 
-import com.github.rainestormee.jdacommand.Command;
+import life.nekos.bot.Command;
 import com.github.rainestormee.jdacommand.CommandAttribute;
 import com.github.rainestormee.jdacommand.CommandDescription;
 import life.nekos.bot.NekoBot;
@@ -23,7 +23,7 @@ import java.util.List;
 )
 public class KissCommand implements Command {
     @Override
-    public void execute(Message message, String args) {
+    public void execute(Message message, Object... args) {
         Models.statsUp("kiss");
         if (message.getMentionedUsers().isEmpty()) {
             message

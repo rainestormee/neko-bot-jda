@@ -1,6 +1,6 @@
 package life.nekos.bot.commands.fun;
 
-import com.github.rainestormee.jdacommand.Command;
+import life.nekos.bot.Command;
 import com.github.rainestormee.jdacommand.CommandAttribute;
 import com.github.rainestormee.jdacommand.CommandDescription;
 import life.nekos.bot.NekoBot;
@@ -30,7 +30,8 @@ import static life.nekos.bot.commons.Misc.UA;
 public class AvatarCommand implements Command {
 
 	@Override
-	public void execute(Message message, String args) {
+	public void execute(Message message, Object... argo) {
+		String args = (String) argo[0];
 		Models.statsUp("avatar");
 		if (args.toLowerCase().contains("--new")) {
 			if (args.toLowerCase().contains("--nsfw")) {

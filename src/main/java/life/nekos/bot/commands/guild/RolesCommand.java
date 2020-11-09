@@ -1,9 +1,9 @@
 package life.nekos.bot.commands.guild;
 
-import com.github.rainestormee.jdacommand.Command;
 import com.github.rainestormee.jdacommand.CommandAttribute;
 import com.github.rainestormee.jdacommand.CommandDescription;
 import com.jagrosh.jdautilities.menu.Paginator;
+import life.nekos.bot.Command;
 import life.nekos.bot.commons.Colors;
 import life.nekos.bot.commons.Formats;
 import life.nekos.bot.commons.Misc;
@@ -39,7 +39,7 @@ public class RolesCommand implements Command {
 					.setEventWaiter(waiter)
 					.setTimeout(1, TimeUnit.MINUTES);
 
-	public void execute(Message event, String args) {
+	public void execute(Message event, Object... args) {
 		Models.statsUp("roles");
 		Guild guild = event.getGuild();
 		StringBuilder sb = new StringBuilder();

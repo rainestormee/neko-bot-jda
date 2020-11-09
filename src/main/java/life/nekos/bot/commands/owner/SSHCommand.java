@@ -1,6 +1,6 @@
 package life.nekos.bot.commands.owner;
 
-import com.github.rainestormee.jdacommand.Command;
+import life.nekos.bot.Command;
 import com.github.rainestormee.jdacommand.CommandAttribute;
 import com.github.rainestormee.jdacommand.CommandDescription;
 import life.nekos.bot.commons.Colors;
@@ -25,9 +25,9 @@ import java.text.MessageFormat;
 public class SSHCommand implements Command {
 
     @Override
-    public void execute(Message trigger, String args) {
+    public void execute(Message trigger, Object... args) {
         String s = null;
-        if (args.length() == 0) {
+        if (args.length == 0) {
             trigger
                     .getChannel()
                     .sendMessage(":x: **LoL you need a command <:blobwaitwhat:357234053310578690> **")
@@ -36,7 +36,7 @@ public class SSHCommand implements Command {
         }
         try {
 
-            Process p = Runtime.getRuntime().exec(args);
+            Process p = Runtime.getRuntime().exec((String) args[0]);
             BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
             BufferedReader stdError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
             StringBuilder wew = new StringBuilder();

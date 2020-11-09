@@ -1,6 +1,6 @@
 package life.nekos.bot.commands.audio;
 
-import com.github.rainestormee.jdacommand.Command;
+import life.nekos.bot.Command;
 import com.github.rainestormee.jdacommand.CommandAttribute;
 import com.github.rainestormee.jdacommand.CommandDescription;
 import life.nekos.bot.audio.AudioHandler;
@@ -19,7 +19,7 @@ import java.text.MessageFormat;
         description = "play some playlist url | search term"
 )
 public class PlaylistCommand implements Command {
-    public void execute(Message event, String args) {
+    public void execute(Message event, Object... args) {
         if (!event.getMember().getVoiceState().inVoiceChannel()) {
             event
                     .getChannel()
@@ -30,7 +30,7 @@ public class PlaylistCommand implements Command {
                     .queue();
             return;
         }
-        if (args.isEmpty()) {
+        if (args.length == 0) {
             event
                     .getChannel()
                     .sendMessage(
@@ -47,7 +47,7 @@ public class PlaylistCommand implements Command {
                                     .build())
                     .queue();
         } else {
-            AudioHandler.loadAndPlay(event, args, true);
+            AudioHandler.loadAndPlay(event, (String) args[0], true);
             event
                     .addReaction(event.getJDA().asBot().getShardManager().getEmoteById(Formats.getEmoteID(Formats.PLAYLIST_EMOTE)))
                     .queue();

@@ -1,6 +1,6 @@
 package life.nekos.bot.commands.audio;
 
-import com.github.rainestormee.jdacommand.Command;
+import life.nekos.bot.Command;
 import com.github.rainestormee.jdacommand.CommandAttribute;
 import com.github.rainestormee.jdacommand.CommandDescription;
 import com.jagrosh.jdautilities.menu.Paginator;
@@ -40,7 +40,7 @@ public class QueueCommand implements Command {
                     .setEventWaiter(waiter)
                     .setTimeout(1, TimeUnit.MINUTES);
 
-    public void execute(Message event, String args) {
+    public void execute(Message event, Object... args) {
         Guild guild = event.getGuild();
         Queue<AudioTrack> queue = AudioHandler.getMusicManager(guild).scheduler.queue;
         {

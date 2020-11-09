@@ -4,6 +4,7 @@
 package life.nekos.bot;
 
 import ch.qos.logback.classic.Logger;
+import com.github.rainestormee.jdacommand.AbstractCommand;
 import com.github.rainestormee.jdacommand.CommandHandler;
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 import com.sedmelluq.discord.lavaplayer.jdaudp.NativeAudioSendFactory;
@@ -29,21 +30,25 @@ import me.sargunvohra.lib.pokekotlin.client.PokeApiClient;
 import net.dv8tion.jda.bot.sharding.DefaultShardManagerBuilder;
 import net.dv8tion.jda.core.JDAInfo;
 import net.dv8tion.jda.core.entities.Game;
+import net.dv8tion.jda.core.entities.Message;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.LoggerFactory;
 
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 import static ch.qos.logback.classic.Level.DEBUG;
 import static ch.qos.logback.classic.Level.INFO;
 import static life.nekos.bot.commons.Constants.*;
 
 public class NekoBot {
-    public static final CommandHandler commandHandler = new CommandHandler();
+    public static final CommandHandler<Message> commandHandler = new CommandHandler<>();
     public static AudioPlayerManager playerManager;
     public static Map<String, GuildMusicManager> musicManagers;
     public static EventWaiter waiter = new EventWaiter();
@@ -80,7 +85,7 @@ public class NekoBot {
                 .setResamplingQuality(AudioConfiguration.ResamplingQuality.HIGH);
 
         musicManagers = new ConcurrentHashMap<>();
-        commandHandler.registerCommands(new CommandRegistry().getCommands());
+        new CommandRegistry().getCommands().forEach(c -> commandHandler.registerCommand((AbstractCommand<Message>) c));
 
         new DefaultShardManagerBuilder()
                 .setGame(Game.playing("https://nekos.life"))

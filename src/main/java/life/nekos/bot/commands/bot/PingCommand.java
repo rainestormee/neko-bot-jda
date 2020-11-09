@@ -1,6 +1,6 @@
 package life.nekos.bot.commands.bot;
 
-import com.github.rainestormee.jdacommand.Command;
+import life.nekos.bot.Command;
 import com.github.rainestormee.jdacommand.CommandAttribute;
 import com.github.rainestormee.jdacommand.CommandDescription;
 import com.jagrosh.jdautilities.menu.Paginator;
@@ -47,8 +47,9 @@ public class PingCommand implements Command {
                     .setTimeout(1, TimeUnit.MINUTES);
 
     @Override
-    public void execute(Message trigger, String args) {
+    public void execute(Message trigger, Object... argo) {
         Models.statsUp("ping");
+        String args = (String) argo[0];
         if (args.toLowerCase().contains("--all")) {
             List<String> pinglist = new ArrayList<>();
         Map<JDA, JDA.Status> s = getShards().getStatuses();

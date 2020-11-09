@@ -1,6 +1,6 @@
 package life.nekos.bot.commands.audio;
 
-import com.github.rainestormee.jdacommand.Command;
+import life.nekos.bot.Command;
 import com.github.rainestormee.jdacommand.CommandAttribute;
 import com.github.rainestormee.jdacommand.CommandDescription;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
@@ -25,7 +25,7 @@ import static life.nekos.bot.commons.checks.UserChecks.audioPrems;
         description = "skips the current track."
 )
 public class SkipCommand implements Command {
-    public void execute(Message event, String args) {
+    public void execute(Message event, Object... args) {
         if (!event.getMember().getVoiceState().inVoiceChannel()) {
             event
                     .getChannel()

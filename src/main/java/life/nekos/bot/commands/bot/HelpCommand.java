@@ -1,6 +1,7 @@
 package life.nekos.bot.commands.bot;
 
-import com.github.rainestormee.jdacommand.Command;
+import com.github.rainestormee.jdacommand.AbstractCommand;
+import life.nekos.bot.Command;
 import com.github.rainestormee.jdacommand.CommandAttribute;
 import com.github.rainestormee.jdacommand.CommandDescription;
 import life.nekos.bot.NekoBot;
@@ -16,6 +17,7 @@ import net.dv8tion.jda.core.entities.MessageEmbed;
 
 import java.text.MessageFormat;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @CommandDescription(
@@ -24,10 +26,9 @@ import java.util.Map;
 		attributes = {@CommandAttribute(key = "dm"), @CommandAttribute(key = "bot")},
 		description = "help, --dm for dm"
 )
-@SuppressWarnings("unchecked")
 public class HelpCommand implements Command {
 
-	private HashMap<String, String> categories =
+	private final HashMap<String, String> categories =
 			new HashMap<String, String>() {
 				{
 					put("music", "\uD83C\uDFB6");
@@ -46,13 +47,13 @@ public class HelpCommand implements Command {
 		CommandDescription description = command.getDescription();
 		return new EmbedBuilder()
 				.setAuthor(
-						msg.getJDA().getSelfUser().getName() + " Command info",
+						msg.getJDA().getSelfUser().getName() + " life.nekos.bot.Command info",
 						msg.getJDA().asBot().getInviteUrl(Permission.ADMINISTRATOR),
 						msg.getJDA().getSelfUser().getEffectiveAvatarUrl())
 				.addField(
 						Formats.info("Info"),
 						MessageFormat.format(
-								"Command:\n**{0}{1}**\nAliases:\n**{2}**\nDescription:\n**{3}**",
+								"life.nekos.bot.Command:\n**{0}{1}**\nAliases:\n**{2}**\nDescription:\n**{3}**",
 								prefix,
 								description.name(),
 								String.join(", ", description.triggers()),
@@ -75,7 +76,8 @@ public class HelpCommand implements Command {
 	}
 
 	@Override
-	public void execute(Message trigger, String args) {
+	public void execute(Message trigger, Object... argo) {
+		String args = (String) argo[0];
 		Models.statsUp("help");
 		trigger.getChannel().sendTyping().queue();
 
@@ -95,7 +97,7 @@ public class HelpCommand implements Command {
 			builders.put(category.getKey(), new StringBuilder());
 		}
 
-		for (Command c : NekoBot.commandHandler.getCommands()) {
+		for (AbstractCommand<Message> c : (NekoBot.commandHandler.getCommands())) {
 			String category;
 
 			if (!c.hasAttribute("OwnerOnly")) {
@@ -144,7 +146,7 @@ public class HelpCommand implements Command {
 		MessageEmbed embed = em.build();
 
 		if (args.length() != 0) {
-			Command command = NekoBot.commandHandler.findCommand(args.split(" ")[0]);
+			Command command = (Command) NekoBot.commandHandler.findCommand(args.split(" ")[0]);
 			if (args.toLowerCase().endsWith("--dm") && command == null) {
 				trigger.getAuthor().openPrivateChannel().queue(pm -> pm.sendMessage(embed).queue());
 				trigger.addReaction("📬").queue();

@@ -1,6 +1,6 @@
 package life.nekos.bot.commands.nsfw;
 
-import com.github.rainestormee.jdacommand.Command;
+import life.nekos.bot.Command;
 import com.github.rainestormee.jdacommand.CommandAttribute;
 import com.github.rainestormee.jdacommand.CommandDescription;
 import life.nekos.bot.NekoBot;
@@ -19,7 +19,7 @@ import net.dv8tion.jda.core.entities.Message;
 )
 public class PussyCommand implements Command {
     @Override
-    public void execute(Message trigger, String args) {
+    public void execute(Message trigger, Object... args) {
         Models.statsUp("pussy");
         try {
             trigger

@@ -1,6 +1,6 @@
 package life.nekos.bot.commands.fun;
 
-import com.github.rainestormee.jdacommand.Command;
+import life.nekos.bot.Command;
 import com.github.rainestormee.jdacommand.CommandAttribute;
 import com.github.rainestormee.jdacommand.CommandDescription;
 import life.nekos.bot.commons.Colors;
@@ -21,7 +21,8 @@ import java.text.MessageFormat;
 )
 public class ColorCommand implements Command {
     @Override
-    public void execute(Message message, String args) {
+    public void execute(Message message, Object... argso) {
+        String args = (String) argso[0];
         if (!message.getMentionedMembers().isEmpty()) {
             System.out.println("k");
             Color c = Colors.getEffectiveMemberColor(message.getMentionedMembers().get(0));

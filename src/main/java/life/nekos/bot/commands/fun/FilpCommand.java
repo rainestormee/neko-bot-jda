@@ -1,6 +1,6 @@
 package life.nekos.bot.commands.fun;
 
-import com.github.rainestormee.jdacommand.Command;
+import life.nekos.bot.Command;
 import com.github.rainestormee.jdacommand.CommandAttribute;
 import com.github.rainestormee.jdacommand.CommandDescription;
 import life.nekos.bot.commons.db.Models;
@@ -40,11 +40,11 @@ public class FilpCommand implements Command {
     }
 
     @Override
-    public void execute(Message message, String args) {
-        String[] arg = args.trim().split(" ");
-        if (args.length() == 0) {
+    public void execute(Message message, Object... args) {
+        if (args.length == 0) {
             return;
         }
+        String[] arg = ((String) args[0]).trim().split(" ");
         Number raw = parse(arg[0]);
         if (raw instanceof Integer) {
             int bet = raw.intValue();

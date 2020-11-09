@@ -1,6 +1,6 @@
 package life.nekos.bot;
 
-import com.github.rainestormee.jdacommand.Command;
+import com.github.rainestormee.jdacommand.AbstractCommand;
 import life.nekos.bot.commands.audio.*;
 import life.nekos.bot.commands.bot.*;
 import life.nekos.bot.commands.fun.*;
@@ -22,6 +22,7 @@ import life.nekos.bot.commands.user.LbCommand;
 import life.nekos.bot.commands.user.ProfileCommand;
 import life.nekos.bot.commands.user.ReleaseCommand;
 import life.nekos.bot.commands.user.SendCommand;
+import net.dv8tion.jda.core.entities.Message;
 
 import java.util.Arrays;
 import java.util.HashSet;

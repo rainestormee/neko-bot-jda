@@ -3,7 +3,7 @@
 // */
 // package life.nekos.bot.commands;
 //
-// import com.jagrosh.jdautilities.commandclient.Command;
+// import com.jagrosh.jdautilities.commandclient.life.nekos.bot.Command;
 // import com.jagrosh.jdautilities.commandclient.CommandEvent;
 // import com.mashape.unirest.http.HttpResponse;
 // import com.mashape.unirest.http.JsonNode;
@@ -22,7 +22,7 @@
 // import java.util.List;
 // import java.util.Map;
 //
-// public class PatCommand extends Command {
+// public class PatCommand extends life.nekos.bot.Command {
 //
 //    public PatCommand() {
 //        this.name = "Pat";
@@ -83,7 +83,7 @@
  */
 package life.nekos.bot.commands.fun;
 
-import com.github.rainestormee.jdacommand.Command;
+import life.nekos.bot.Command;
 import com.github.rainestormee.jdacommand.CommandAttribute;
 import com.github.rainestormee.jdacommand.CommandDescription;
 import life.nekos.bot.NekoBot;
@@ -108,7 +108,7 @@ import java.util.List;
 @SuppressWarnings("unchecked")
 public class PatCommand implements Command {
     @Override
-    public void execute(Message message, String args) {
+    public void execute(Message message, Object... args) {
         Models.statsUp("pat");
         if (message.getMentionedUsers().isEmpty()) {
             message

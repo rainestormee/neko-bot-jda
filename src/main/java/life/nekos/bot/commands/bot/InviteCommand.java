@@ -1,6 +1,6 @@
 package life.nekos.bot.commands.bot;
 
-import com.github.rainestormee.jdacommand.Command;
+import life.nekos.bot.Command;
 import com.github.rainestormee.jdacommand.CommandAttribute;
 import com.github.rainestormee.jdacommand.CommandDescription;
 import life.nekos.bot.commons.Colors;
@@ -20,7 +20,7 @@ import java.text.MessageFormat;
 )
 public class InviteCommand implements Command {
     @Override
-    public void execute(Message trigger, String args) {
+    public void execute(Message trigger, Object... args) {
         Models.statsUp("invite");
         trigger
                 .getTextChannel()

@@ -1,7 +1,6 @@
 package life.nekos.bot.commands.bot;
 
-import com.github.rainestormee.jdacommand.Category;
-import com.github.rainestormee.jdacommand.Command;
+import life.nekos.bot.Command;
 import com.github.rainestormee.jdacommand.CommandAttribute;
 import com.github.rainestormee.jdacommand.CommandDescription;
 import life.nekos.bot.NekoBot;
@@ -17,7 +16,6 @@ import static life.nekos.bot.commons.checks.BotChecks.canDelete;
 import static life.nekos.bot.commons.checks.MiscChecks.isSpam;
 import static life.nekos.bot.commons.checks.MiscChecks.twoWeeks;
 
-@Category("bot")
 @CommandDescription(
         name = "Clean",
         triggers = {"clean", "cleanup", "purge", "del"},
@@ -26,7 +24,7 @@ import static life.nekos.bot.commons.checks.MiscChecks.twoWeeks;
 )
 public class CleanCommand implements Command {
     @Override
-    public void execute(Message message, String args) {
+    public void execute(Message message, Object... args) {
         if (!canDelete(message)) {
             message
                     .getChannel()

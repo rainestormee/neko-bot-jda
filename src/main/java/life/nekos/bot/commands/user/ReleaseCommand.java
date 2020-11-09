@@ -1,6 +1,6 @@
 package life.nekos.bot.commands.user;
 
-import com.github.rainestormee.jdacommand.Command;
+import life.nekos.bot.Command;
 import com.github.rainestormee.jdacommand.CommandAttribute;
 import com.github.rainestormee.jdacommand.CommandDescription;
 import life.nekos.bot.commons.SendNeko;
@@ -17,7 +17,7 @@ import net.dv8tion.jda.core.entities.Message;
 )
 public class ReleaseCommand implements Command {
     @Override
-    public void execute(Message message, String args) {
+    public void execute(Message message, Object... args) {
         Models.statsUp("release");
         if(Models.getBal(message.getAuthor().getId()) == 0){
                 message.getChannel().sendMessage("Nya~ You do not have any nekos to release nya~").queue();

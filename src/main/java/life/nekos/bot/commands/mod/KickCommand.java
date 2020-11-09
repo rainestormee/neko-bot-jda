@@ -1,6 +1,6 @@
 package life.nekos.bot.commands.mod;
 
-import com.github.rainestormee.jdacommand.Command;
+import life.nekos.bot.Command;
 import com.github.rainestormee.jdacommand.CommandAttribute;
 import com.github.rainestormee.jdacommand.CommandDescription;
 import life.nekos.bot.commons.Formats;
@@ -21,7 +21,7 @@ import static life.nekos.bot.commons.checks.UserChecks.isAdmin;
 )
 public class KickCommand implements Command {
   @Override
-  public void execute(Message message, String args) {
+  public void execute(Message message, Object... args) {
     if (message.getMentionedMembers().isEmpty()) {
 
       message.getTextChannel().sendMessage(Formats.error("You must tag a user")).queue();

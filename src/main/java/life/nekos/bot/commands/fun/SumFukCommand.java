@@ -1,6 +1,6 @@
 package life.nekos.bot.commands.fun;
 
-import com.github.rainestormee.jdacommand.Command;
+import life.nekos.bot.Command;
 import com.github.rainestormee.jdacommand.CommandAttribute;
 import com.github.rainestormee.jdacommand.CommandDescription;
 import life.nekos.bot.NekoBot;
@@ -34,7 +34,7 @@ import static life.nekos.bot.commons.checks.UserChecks.isDonor;
 
 public class SumFukCommand implements Command {
     @Override
-    public void execute(Message context, String args) {
+    public void execute(Message context, Object... args) {
         Message message = context;
         if (!isDonor(message.getAuthor())) {
             message
@@ -108,7 +108,7 @@ public class SumFukCommand implements Command {
     )
     public static class MemeCommand implements Command {
         @Override
-        public void execute(Message trigger, String args) {
+        public void execute(Message trigger, Object... args) {
             Models.statsUp("gecg");
             if (!trigger.getTextChannel().isNSFW()) {
                 trigger

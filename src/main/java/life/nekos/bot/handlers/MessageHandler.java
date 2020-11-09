@@ -1,7 +1,7 @@
 package life.nekos.bot.handlers;
 
-import com.github.rainestormee.jdacommand.Command;
 import com.github.rainestormee.jdacommand.CommandHandler;
+import life.nekos.bot.Command;
 import life.nekos.bot.NekoBot;
 import life.nekos.bot.commons.Colors;
 import life.nekos.bot.commons.Formats;
@@ -12,6 +12,7 @@ import life.nekos.bot.commons.db.Models;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.Permission;
+import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.events.message.MessageUpdateEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
@@ -26,59 +27,23 @@ import static life.nekos.bot.commons.db.Models.hasPrefix;
  * Created by Repulser https://github.com/Repulser
  */
 public class MessageHandler extends ListenerAdapter {
-	private static final ThreadGroup threadGroup = new ThreadGroup("Command Executor");
+	private static final ThreadGroup threadGroup = new ThreadGroup("life.nekos.bot.Command Executor");
 	private static final Executor commandsExecutor =
-			Executors.newCachedThreadPool(r -> new Thread(threadGroup, r, "Command Pool"));
+			Executors.newCachedThreadPool(r -> new Thread(threadGroup, r, "life.nekos.bot.Command Pool"));
 
 	static {
 		threadGroup.setMaxPriority(Thread.MAX_PRIORITY);
 	}
 
-	private final CommandHandler handler;
+	private final CommandHandler<Message> handler;
 	public String str;
 
-	public MessageHandler(CommandHandler handler) {
+	public MessageHandler(CommandHandler<Message> handler) {
 		this.handler = handler;
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
 	public void onMessageReceived(MessageReceivedEvent event) {
-    /*if (Objects.equals(event.getTextChannel().getId(), "440667148315262978") && !BotChecks.noBot(event.getMessage())){
-    	 StringBuilder info = new StringBuilder();
-    	 info.append(MessageFormat.format("################### Users in {0} ###################\n",event.getGuild().getName()));
-        EventHandler.getHOME()
-            .getMembers()
-            .forEach(
-                member -> {
-                  info.append("##############################################################\n");
-                  info.append("Name: ")
-                      .append(member.getUser().getName()).append("#").append(member.getUser().getDiscriminator())
-                      .append("\n")
-                    .append("Status: \n").append(member.getOnlineStatus().getKey()).append("\n");
-                    if (member.getGame() != null){
-                    	info.append("Game: \n").append(member.getGame().getName()).append("\n");
-                    }
-                      info.append("Permissions: \n");
-                  member
-                      .getPermissions()
-                      .forEach(
-                          permission -> {
-                            info.append(permission.getName()).append("\n");
-                          });
-                  info.append("\nRoles: \n");
-                  member
-                      .getRoles()
-                      .forEach(
-                          role -> {
-                            info.append("Role : *").append(role.getName()).append("*").append("\n").append("Role Permissions:").append("\n");
-                            role.getPermissions().forEach(r -> info.append(r.getName()).append("\n"));
-                          });
-                  info.append(
-                      "\n##############################################################\n");
-                });
-    	Misc.wump(info.toString());
-    }*/
 
 		if (!EventHandler.getREADY()) {
 			return;
@@ -131,7 +96,7 @@ public class MessageHandler extends ListenerAdapter {
 					} catch (Exception e) {
 						return;
 					}
-					Command command = handler.findCommand(commandString.toLowerCase());
+					Command command = (Command) handler.findCommand(commandString.toLowerCase());
 					if (command == null) {
 						if (message.startsWith(jda.getSelfUser().getAsMention())) {
 							try {
@@ -218,8 +183,7 @@ public class MessageHandler extends ListenerAdapter {
 
 					try {
 						Formats.logCommand(event.getMessage());
-						handler.execute(
-								command, event.getMessage(), splitMessage.length > 1 ? splitMessage[1] : "");
+						handler.execute(command, event.getMessage(), splitMessage.length > 1 ? splitMessage[1] : "", "");
 					} catch (Exception e) {
 						NekoBot.log.error("Error on command", e);
 						event.getMessage().addReaction("\uD83D\uDEAB").queue();
@@ -246,7 +210,7 @@ public class MessageHandler extends ListenerAdapter {
 					} catch (Exception e) {
 						return;
 					}
-					Command command = handler.findCommand(commandString.toLowerCase());
+					Command command = (Command) handler.findCommand(commandString.toLowerCase());
 					if (command == null) return;
 					if (command.hasAttribute("OwnerOnly") && !MiscChecks.isOwner(event.getMessage())) {
 						return;
@@ -299,7 +263,7 @@ public class MessageHandler extends ListenerAdapter {
 					try {
 						Formats.logCommand(event.getMessage());
 						handler.execute(
-								command, event.getMessage(), splitMessage.length > 1 ? splitMessage[1] : "");
+								command, event.getMessage(), splitMessage.length > 1 ? splitMessage[1] : "", "");
 					} catch (Exception e) {
 						NekoBot.log.error("Error on command", e);
 					}

@@ -1,6 +1,6 @@
 package life.nekos.bot.commands.owner;
 
-import com.github.rainestormee.jdacommand.Command;
+import life.nekos.bot.Command;
 import com.github.rainestormee.jdacommand.CommandAttribute;
 import com.github.rainestormee.jdacommand.CommandDescription;
 import groovy.lang.Binding;
@@ -36,9 +36,9 @@ public class EvalCommand implements Command {
     }
 
     @Override
-    public void execute(Message trigger, String args) {
+    public void execute(Message trigger, Object... args) {
         GroovyShell shell = this.createShell(trigger);
-        String code = String.join(" ", args);
+        String code = String.join(" ", (String) args[0]);
         POOL.execute(
                 () -> {
                     try {

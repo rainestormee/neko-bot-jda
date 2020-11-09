@@ -1,9 +1,9 @@
 package life.nekos.bot.commands.audio;
 
-import com.github.rainestormee.jdacommand.Command;
 import com.github.rainestormee.jdacommand.CommandAttribute;
 import com.github.rainestormee.jdacommand.CommandDescription;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
+import life.nekos.bot.Command;
 import life.nekos.bot.audio.AudioHandler;
 import life.nekos.bot.commons.Colors;
 import life.nekos.bot.commons.Formats;
@@ -27,7 +27,7 @@ import static life.nekos.bot.audio.AudioHandler.getTimestamp;
 )
 public class BackCommand implements Command {
     @Override
-    public void execute(Message message, String args) {
+    public void execute(Message message, Object... args) {
         if (!message.getMember().getVoiceState().inVoiceChannel()) {
             message
                     .getChannel()

@@ -1,6 +1,6 @@
 package life.nekos.bot.commands.audio;
 
-import com.github.rainestormee.jdacommand.Command;
+import life.nekos.bot.Command;
 import com.github.rainestormee.jdacommand.CommandAttribute;
 import com.github.rainestormee.jdacommand.CommandDescription;
 import life.nekos.bot.audio.AudioHandler;
@@ -26,7 +26,7 @@ import static life.nekos.bot.commons.checks.UserChecks.isDonor;
         description = "sets the volume.\nThis is a Patreon only command"
 )
 public class VolumeCommand implements Command {
-    public void execute(Message message, String args) {
+    public void execute(Message message, Object... args) {
         Models.statsUp("volume");
         if (!isDonor(message.getAuthor())) {
             message
@@ -83,9 +83,9 @@ public class VolumeCommand implements Command {
                         .queue();
             }
 
-            String[] arg = args.trim().split(" ");
             int vol = musicManager.player.getVolume();
-            if (args.length() > 0) {
+            if (args.length > 0) {
+                String[] arg = ((String) args[0]).trim().split(" ");
                 try {
                     int nvol = Integer.parseInt(arg[0]);
                     if (nvol > 100) nvol = 100;
@@ -122,7 +122,7 @@ public class VolumeCommand implements Command {
                     return;
                 }
             }
-            if (args.isEmpty()) {
+            if (((String) args[0]).isEmpty()) {
                 message
                         .getChannel()
                         .sendMessage(

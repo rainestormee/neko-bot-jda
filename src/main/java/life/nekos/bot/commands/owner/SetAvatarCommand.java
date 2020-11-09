@@ -1,6 +1,6 @@
 package life.nekos.bot.commands.owner;
 
-import com.github.rainestormee.jdacommand.Command;
+import life.nekos.bot.Command;
 import com.github.rainestormee.jdacommand.CommandAttribute;
 import com.github.rainestormee.jdacommand.CommandDescription;
 import life.nekos.bot.commons.Formats;
@@ -24,8 +24,8 @@ import static life.nekos.bot.commons.Misc.UA;
 )
 public class SetAvatarCommand implements Command {
     @Override
-    public void execute(Message message, String args) {
-        if (args.toLowerCase().contains("--random")) {
+    public void execute(Message message, Object... args) {
+        if (((String) args[0]).toLowerCase().contains("--random")) {
             try {
                 URL url = new URL(Nekos.getAvatar());
                 URLConnection connection = url.openConnection();
@@ -57,7 +57,7 @@ public class SetAvatarCommand implements Command {
             return;
         }
         try {
-            URL url = new URL(args);
+            URL url = new URL((String) args[0]);
             URLConnection connection = url.openConnection();
             connection.setRequestProperty(UA[0], UA[1]);
             connection.connect();

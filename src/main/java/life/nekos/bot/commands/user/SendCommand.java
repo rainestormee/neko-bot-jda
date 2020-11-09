@@ -1,6 +1,6 @@
 package life.nekos.bot.commands.user;
 
-import com.github.rainestormee.jdacommand.Command;
+import life.nekos.bot.Command;
 import com.github.rainestormee.jdacommand.CommandAttribute;
 import com.github.rainestormee.jdacommand.CommandDescription;
 import life.nekos.bot.commons.Colors;
@@ -28,7 +28,8 @@ import java.util.List;
 )
 public class SendCommand implements Command {
     @Override
-    public void execute(Message event, String args) {
+    public void execute(Message event, Object... argo) {
+    	String args = (String) argo[0];
         Models.statsUp("send");
         User author = event.getAuthor();
         TextChannel ch = event.getTextChannel();

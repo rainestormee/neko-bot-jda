@@ -1,11 +1,12 @@
 package life.nekos.bot.server;
 
-import com.github.rainestormee.jdacommand.Command;
+import com.github.rainestormee.jdacommand.AbstractCommand;
 import com.google.gson.Gson;
 import life.nekos.bot.NekoBot;
 import life.nekos.bot.commons.db.Models;
 import life.nekos.bot.handlers.EventHandler;
 import net.dv8tion.jda.core.entities.Guild;
+import net.dv8tion.jda.core.entities.Message;
 
 import java.text.MessageFormat;
 import java.util.*;
@@ -42,8 +43,8 @@ public class Server {
                 });
 
         List<String> comlist = new ArrayList<>();
-        Set<Command> comms = NekoBot.commandHandler.getCommands();
-        for (Command c : comms) {
+        Set<AbstractCommand<Message>> comms = NekoBot.commandHandler.getCommands();
+        for (AbstractCommand<Message> c : comms) {
             if (!c.hasAttribute("OwnerOnly")) {
                 comlist.add(
                         String.format(

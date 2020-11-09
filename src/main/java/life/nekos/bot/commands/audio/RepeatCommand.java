@@ -1,6 +1,6 @@
 package life.nekos.bot.commands.audio;
 
-import com.github.rainestormee.jdacommand.Command;
+import life.nekos.bot.Command;
 import com.github.rainestormee.jdacommand.CommandAttribute;
 import com.github.rainestormee.jdacommand.CommandDescription;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
@@ -25,7 +25,7 @@ import static life.nekos.bot.commons.checks.UserChecks.isDonor;
 )
 public class RepeatCommand implements Command {
     @Override
-    public void execute(Message message, String args) {
+    public void execute(Message message, Object... args) {
 	    if (!isDonor(message.getAuthor())) {
 		    message
 				    .getChannel()
@@ -51,7 +51,7 @@ public class RepeatCommand implements Command {
 		    return;
 	    }
 	    GuildMusicManager musicManager = AudioHandler.getMusicManager(message.getGuild());
-        String[] arg = args.trim().split(" ");
+        String[] arg = ((String) args[0]).trim().split(" ");
 	    if (!message.getMember().getVoiceState().inVoiceChannel()) {
 		    message
                     .getChannel()

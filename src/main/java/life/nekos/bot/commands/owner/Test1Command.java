@@ -1,6 +1,6 @@
 package life.nekos.bot.commands.owner;
 
-import com.github.rainestormee.jdacommand.Command;
+import life.nekos.bot.Command;
 import com.github.rainestormee.jdacommand.CommandAttribute;
 import com.github.rainestormee.jdacommand.CommandDescription;
 import life.nekos.bot.commons.Misc;
@@ -27,7 +27,7 @@ import java.util.Map;
 )
 public class Test1Command implements Command {
     @Override
-    public void execute(Message context, String args) {
+    public void execute(Message context, Object... args) {
         System.out.println("wot");
         //        JFrame frame = new JFrame();
         //        frame.setSize(300, 300);

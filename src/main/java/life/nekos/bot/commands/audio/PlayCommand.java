@@ -1,6 +1,6 @@
 package life.nekos.bot.commands.audio;
 
-import com.github.rainestormee.jdacommand.Command;
+import life.nekos.bot.Command;
 import com.github.rainestormee.jdacommand.CommandAttribute;
 import com.github.rainestormee.jdacommand.CommandDescription;
 import life.nekos.bot.audio.AudioHandler;
@@ -22,7 +22,8 @@ import java.text.MessageFormat;
         description = "play some url | search term"
 )
 public class PlayCommand implements Command {
-    public void execute(Message message, String args) {
+    public void execute(Message message, Object... argo) {
+        String args = (String) argo[0];
         if (!message.getMember().getVoiceState().inVoiceChannel()) {
             message
                     .getChannel()

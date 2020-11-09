@@ -1,6 +1,6 @@
 package life.nekos.bot.commands.fun;
 
-import com.github.rainestormee.jdacommand.Command;
+import life.nekos.bot.Command;
 import com.github.rainestormee.jdacommand.CommandAttribute;
 import com.github.rainestormee.jdacommand.CommandDescription;
 import life.nekos.bot.NekoBot;
@@ -20,9 +20,9 @@ import static life.nekos.bot.commons.apis.Nekos.getBall;
 )
 public class BallCommand implements Command {
     @Override
-    public void execute(Message trigger, String args) {
+    public void execute(Message trigger, Object... args) {
 
-	    if (!args.endsWith("?")) {
+	    if (!((String) args[0]).endsWith("?")) {
             trigger
                     .getTextChannel()
                     .sendMessage(
@@ -44,7 +44,7 @@ public class BallCommand implements Command {
                                             "Magic \uD83C\uDFB1",
                                             trigger.getJDA().asBot().getInviteUrl(),
                                             trigger.getAuthor().getEffectiveAvatarUrl())
-                                    .setDescription("❓: " + args + "\nℹ: " + jsonObj.getString("response"))
+                                    .setDescription("❓: " + args[0] + "\nℹ: " + jsonObj.getString("response"))
                                     .setImage(jsonObj.getString("url"))
                                     .build())
                     .queue();

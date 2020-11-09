@@ -1,7 +1,7 @@
 package life.nekos.
 		bot.commands.fun;
 
-import com.github.rainestormee.jdacommand.Command;
+import life.nekos.bot.Command;
 import com.github.rainestormee.jdacommand.CommandAttribute;
 import com.github.rainestormee.jdacommand.CommandDescription;
 import life.nekos.bot.NekoBot;
@@ -22,7 +22,7 @@ import java.awt.*;
 )
 public class MemeCommand implements Command {
 	@Override
-	public void execute(Message trigger, String args) {
+	public void execute(Message trigger, Object... args) {
 		Models.statsUp("gecg");
 		if (!trigger.getTextChannel().isNSFW()) {
 			trigger

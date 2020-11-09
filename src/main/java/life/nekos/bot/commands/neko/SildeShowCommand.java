@@ -1,6 +1,6 @@
 package life.nekos.bot.commands.neko;
 
-import com.github.rainestormee.jdacommand.Command;
+import life.nekos.bot.Command;
 import com.github.rainestormee.jdacommand.CommandAttribute;
 import com.github.rainestormee.jdacommand.CommandDescription;
 import com.jagrosh.jdautilities.menu.Slideshow;
@@ -27,7 +27,7 @@ public class SildeShowCommand implements Command {
             new Slideshow.Builder().setEventWaiter(waiter).setTimeout(1, TimeUnit.MINUTES);
 
     @Override
-    public void execute(Message event, String args) {
+    public void execute(Message event, Object... args) {
         if (!canDelete(event)) {
             event
                     .getTextChannel()

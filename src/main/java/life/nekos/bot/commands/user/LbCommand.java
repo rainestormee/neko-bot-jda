@@ -1,6 +1,6 @@
 package life.nekos.bot.commands.user;
 
-import com.github.rainestormee.jdacommand.Command;
+import life.nekos.bot.Command;
 import com.github.rainestormee.jdacommand.CommandAttribute;
 import com.github.rainestormee.jdacommand.CommandDescription;
 import com.jagrosh.jdautilities.menu.Paginator;
@@ -44,7 +44,7 @@ public class LbCommand implements Command {
                     .setTimeout(1, TimeUnit.MINUTES);
 
     @Override
-    public void execute(Message message, String args) {
+    public void execute(Message message, Object... args) {
         Models.statsUp("leaderboard");
         if (!BotChecks.canReact(message)) {
             message
@@ -55,11 +55,11 @@ public class LbCommand implements Command {
             return;
         }
         message.addReaction("\uD83E\uDD47").queue();
-        if (args.length() == 0) {
+        if (args.length == 0) {
             message.getChannel().sendMessage(":x: **Use `lb nekos` or `lb levels`**").queue();
             return;
         }
-        String[] arg = args.trim().split(" ");
+        String[] arg = ((String) args[0]).trim().split(" ");
         switch (arg[0]) {
             case "nekos":
                 int page = 1;

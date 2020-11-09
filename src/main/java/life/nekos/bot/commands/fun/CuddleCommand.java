@@ -3,7 +3,7 @@ package life.nekos.bot.commands.fun;
  * Created by Tom on 9/18/2017.
  */
 
-import com.github.rainestormee.jdacommand.Command;
+import life.nekos.bot.Command;
 import com.github.rainestormee.jdacommand.CommandAttribute;
 import com.github.rainestormee.jdacommand.CommandDescription;
 import life.nekos.bot.NekoBot;
@@ -27,7 +27,7 @@ import java.util.List;
 @SuppressWarnings("unchecked")
 public class CuddleCommand implements Command {
     @Override
-    public void execute(Message message, String args) {
+    public void execute(Message message, Object... args) {
         Models.statsUp("cuddle");
         if (message.getMentionedUsers().isEmpty()) {
             message

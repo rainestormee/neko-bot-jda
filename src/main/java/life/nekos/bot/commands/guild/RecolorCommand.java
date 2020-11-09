@@ -1,9 +1,8 @@
 package life.nekos.bot.commands.guild;
 
-import com.github.rainestormee.jdacommand.Category;
-import com.github.rainestormee.jdacommand.Command;
 import com.github.rainestormee.jdacommand.CommandAttribute;
 import com.github.rainestormee.jdacommand.CommandDescription;
+import life.nekos.bot.Command;
 import life.nekos.bot.NekoBot;
 import life.nekos.bot.commons.Colors;
 import life.nekos.bot.commons.Formats;
@@ -28,10 +27,9 @@ import static life.nekos.bot.commons.checks.UserChecks.isDonor;
         description =
                 "Randomly sets the color to all hoisted roles on this server\nThis is a Patreon only command"
 )
-@Category("guild")
 public class RecolorCommand implements Command {
     @Override
-    public void execute(Message message, String args) {
+    public void execute(Message message, Object... args) {
         if (!isDonor(message.getAuthor())) {
             message
                     .getChannel()
@@ -77,7 +75,7 @@ public class RecolorCommand implements Command {
                 .setColor(Colors.getEffectiveMemberColor(message.getMember()))
                 .setDescription(
                         Formats.info(
-                                "This Command will randomly set the color to all hoisted roles on this server! Are you sure you want to continue?"))
+                                "This life.nekos.bot.Command will randomly set the color to all hoisted roles on this server! Are you sure you want to continue?"))
                 .setChoices(
                         message
                                 .getJDA()

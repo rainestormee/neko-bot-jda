@@ -1,6 +1,6 @@
 package life.nekos.bot.commands.fun;
 
-import com.github.rainestormee.jdacommand.Command;
+import life.nekos.bot.Command;
 import com.github.rainestormee.jdacommand.CommandAttribute;
 import com.github.rainestormee.jdacommand.CommandDescription;
 import life.nekos.bot.commons.Formats;
@@ -20,7 +20,8 @@ import java.util.regex.Pattern;
 )
 public class DidyoumeanCommand implements Command {
 	@Override
-	public void execute(Message message, String args) {
+	public void execute(Message message, Object... argo) {
+		String args = (String) argo[0];
 		if (args.isEmpty()) {
 			message.getTextChannel().sendMessage(Formats.error("Missing args")).queue();
 			return;
