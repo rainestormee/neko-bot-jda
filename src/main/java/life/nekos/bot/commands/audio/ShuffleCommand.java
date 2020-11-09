@@ -5,13 +5,12 @@ import com.github.rainestormee.jdacommand.CommandDescription;
 import life.nekos.bot.Command;
 import life.nekos.bot.audio.AudioHandler;
 import life.nekos.bot.commons.Formats;
-import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.api.entities.Message;
 
 import java.util.Collections;
 import java.util.List;
 
 import static life.nekos.bot.commons.checks.BotChecks.canReact;
-import static life.nekos.bot.commons.checks.UserChecks.audioPerms;
 
 @CommandDescription(
         name = "Shuffle",
@@ -30,7 +29,7 @@ public class ShuffleCommand implements Command {
                     .queue(
                             m -> {
                                 if (canReact(m))
-                                    m.addReaction(m.getJDA().asBot().getShardManager().getEmoteById(Formats.getEmoteID(Formats.PLAY_EMOTE)))
+                                    m.addReaction(m.getJDA().getShardManager().getEmoteById(Formats.getEmoteID(Formats.PLAY_EMOTE)))
                                             .queue();
                             });
             return;
@@ -44,7 +43,7 @@ public class ShuffleCommand implements Command {
                             if (canReact(message)) {
                                 message
                                         .addReaction(
-                                                message.getJDA().asBot().getShardManager().getEmoteById(Formats.getEmoteID(Formats.SHUFFLE_EMOTE)))
+                                                message.getJDA().getShardManager().getEmoteById(Formats.getEmoteID(Formats.SHUFFLE_EMOTE)))
                                         .queue();
                             }
                         });

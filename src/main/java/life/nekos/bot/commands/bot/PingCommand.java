@@ -7,9 +7,9 @@ import life.nekos.bot.Command;
 import life.nekos.bot.commons.Colors;
 import life.nekos.bot.commons.Formats;
 import life.nekos.bot.commons.db.Models;
-import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.exceptions.PermissionException;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.exceptions.PermissionException;
 
 import java.text.MessageFormat;
 import java.util.Map;
@@ -46,7 +46,7 @@ public class PingCommand implements Command {
             builder.clearItems();
             s.forEach((k, v) ->
                     builder.addItems(MessageFormat.format("Shard: {0}, Ping: {1}ms, Status: {2} {3}\n",
-                            k.getShardInfo().getShardId(), k.getPing(), v,
+                            k.getShardInfo().getShardId(), k.getGatewayPing(), v,
                             trigger.getJDA().getShardInfo().getShardId() == k.getShardInfo().getShardId() ? "(This guild)" : "")
                     )
             );
@@ -56,6 +56,6 @@ public class PingCommand implements Command {
             p.paginate(trigger.getChannel(), 1);
             return;
         }
-        trigger.getChannel().sendMessage("⏳ Ping: " + trigger.getJDA().getPing() + "ms").queue();
+        trigger.getChannel().sendMessage("⏳ Ping: " + trigger.getJDA().getGatewayPing() + "ms").queue();
     }
 }

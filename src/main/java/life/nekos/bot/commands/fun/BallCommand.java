@@ -6,8 +6,8 @@ import life.nekos.bot.Command;
 import life.nekos.bot.NekoBot;
 import life.nekos.bot.commons.Colors;
 import life.nekos.bot.commons.Formats;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Message;
 import org.json.JSONObject;
 
 import static life.nekos.bot.commons.apis.Nekos.getBall;
@@ -31,7 +31,7 @@ public class BallCommand implements Command {
             String ball = getBall();
             JSONObject jsonObj = new JSONObject(ball);
             System.out.println(jsonObj.getString("url"));
-            trigger.getChannel().sendMessage(new EmbedBuilder().setColor(Colors.getEffectiveColor(trigger)).setAuthor("Magic \uD83C\uDFB1", trigger.getJDA().asBot().getInviteUrl(), trigger.getAuthor().getEffectiveAvatarUrl())
+            trigger.getChannel().sendMessage(new EmbedBuilder().setColor(Colors.getEffectiveColor(trigger)).setAuthor("Magic \uD83C\uDFB1", trigger.getJDA().getInviteUrl(), trigger.getAuthor().getEffectiveAvatarUrl())
                     .setDescription("❓: " + question + "\nℹ: " + jsonObj.getString("response"))
                     .setImage(jsonObj.getString("url"))
                     .build())

@@ -2,16 +2,15 @@ package life.nekos.bot.commands.user;
 
 import com.github.rainestormee.jdacommand.CommandAttribute;
 import com.github.rainestormee.jdacommand.CommandDescription;
-import com.sun.corba.se.spi.servicecontext.UEInfoServiceContext;
 import life.nekos.bot.Command;
 import life.nekos.bot.commons.Colors;
 import life.nekos.bot.commons.Formats;
 import life.nekos.bot.commons.db.Models;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.Member;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.MessageEmbed;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageEmbed;
+import net.dv8tion.jda.api.entities.User;
 
 import java.text.MessageFormat;
 import java.util.Map;
@@ -31,7 +30,7 @@ public class ProfileCommand implements Command {
     @Override
     public void execute(Message message, Object... args) {
         Models.statsUp("profile");
-        message.addReaction(message.getJDA().asBot().getShardManager().getEmoteById(Formats.getEmoteID(Formats.USER_EMOTE))).queue();
+        message.addReaction(message.getJDA().getShardManager().getEmoteById(Formats.getEmoteID(Formats.USER_EMOTE))).queue();
         if (message.getMentionedMembers().isEmpty()) {
             message.getChannel().sendMessage(createProfileEmbedForUser(message.getMember())).queue();
             return;

@@ -8,11 +8,11 @@ import life.nekos.bot.commons.Colors;
 import life.nekos.bot.commons.Formats;
 import life.nekos.bot.commons.apis.Nekos;
 import life.nekos.bot.commons.db.Models;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.Permission;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.TextChannel;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.User;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -33,6 +33,7 @@ import static life.nekos.bot.commons.checks.UserChecks.isDonor;
 )
 
 public class SumFukCommand implements Command {
+
     @Override
     public void execute(Message context, Object... args) {
         Message message = context;
@@ -43,7 +44,7 @@ public class SumFukCommand implements Command {
                             new EmbedBuilder()
                                     .setAuthor(
                                             message.getJDA().getSelfUser().getName(),
-                                            message.getJDA().asBot().getInviteUrl(Permission.ADMINISTRATOR),
+                                            message.getJDA().getInviteUrl(Permission.ADMINISTRATOR),
                                             message.getJDA().getSelfUser().getEffectiveAvatarUrl())
                                     .setColor(Colors.getEffectiveColor(message))
                                     .setDescription(
@@ -51,7 +52,6 @@ public class SumFukCommand implements Command {
                                                     " Sorry this command is only available to our Patrons.\n"
                                                             + message
                                                             .getJDA()
-                                                            .asBot()
                                                             .getShardManager()
                                                             .getEmoteById(475801484282429450L).getAsMention()
 

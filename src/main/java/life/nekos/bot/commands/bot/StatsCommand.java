@@ -5,7 +5,7 @@ import com.github.rainestormee.jdacommand.CommandDescription;
 import com.sun.management.OperatingSystemMXBean;
 import life.nekos.bot.Command;
 import life.nekos.bot.commons.Misc;
-import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.api.entities.Message;
 
 import java.lang.management.ManagementFactory;
 import java.math.RoundingMode;

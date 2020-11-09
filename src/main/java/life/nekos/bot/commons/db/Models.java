@@ -8,10 +8,10 @@ import life.nekos.bot.NekoBot;
 import life.nekos.bot.commons.SendNeko;
 import life.nekos.bot.commons.checks.BotChecks;
 import life.nekos.bot.commons.checks.MiscChecks;
-import net.dv8tion.jda.core.entities.Guild;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.User;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.Calendar;
 import java.util.Comparator;

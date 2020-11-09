@@ -8,12 +8,11 @@ import life.nekos.bot.audio.GuildMusicManager;
 import life.nekos.bot.audio.VoiceHandler;
 import life.nekos.bot.commons.Formats;
 import life.nekos.bot.commons.db.Models;
-import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.api.entities.Message;
 
 import java.text.MessageFormat;
 
 import static life.nekos.bot.commons.checks.BotChecks.canReact;
-import static life.nekos.bot.commons.checks.UserChecks.audioPerms;
 
 @CommandDescription(
         name = "Stop",
@@ -39,7 +38,7 @@ public class StopCommand implements Command {
                         .queue(
                                 m -> {
                                     if (canReact(m)) {
-                                        m.addReaction(m.getJDA().asBot().getShardManager().getEmoteById(Formats.getEmoteID(Formats.STOP_EMOTE)))
+                                        m.addReaction(m.getJDA().getShardManager().getEmoteById(Formats.getEmoteID(Formats.STOP_EMOTE)))
                                                 .queue();
                                     }
                                 });
@@ -51,7 +50,7 @@ public class StopCommand implements Command {
                     .queue(
                             m -> {
                                 if (canReact(m)) {
-                                    m.addReaction(m.getJDA().asBot().getShardManager().getEmoteById(Formats.getEmoteID(Formats.PLAY_EMOTE)))
+                                    m.addReaction(m.getJDA().getShardManager().getEmoteById(Formats.getEmoteID(Formats.PLAY_EMOTE)))
                                             .queue();
                                 }
                             });

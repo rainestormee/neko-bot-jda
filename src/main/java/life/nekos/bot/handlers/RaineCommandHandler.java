@@ -11,13 +11,13 @@ import life.nekos.bot.commons.checks.BotChecks;
 import life.nekos.bot.commons.checks.MiscChecks;
 import life.nekos.bot.commons.checks.UserChecks;
 import life.nekos.bot.commons.db.Models;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.Permission;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.core.events.message.MessageUpdateEvent;
-import net.dv8tion.jda.core.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageUpdateEvent;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -105,12 +105,12 @@ public class RaineCommandHandler extends ListenerAdapter {
 
             if (command.hasAttribute("PayWall") && !isDonor(event.getAuthor())) {
                 event.getChannel().sendMessage(
-                        new EmbedBuilder().setAuthor(event.getJDA().getSelfUser().getName(), event.getJDA().asBot()
+                        new EmbedBuilder().setAuthor(event.getJDA().getSelfUser().getName(), event.getJDA()
                                 .getInviteUrl(Permission.ADMINISTRATOR), event.getJDA().getSelfUser().getEffectiveAvatarUrl())
                                 .setColor(Colors.getEffectiveColor(message))
                                 .setDescription(
                                         Formats.error("Sorry this command is only available to our Patrons.\n" +
-                                                event.getJDA().asBot().getShardManager().getEmoteById(475801484282429450L).getAsMention() +
+                                                event.getJDA().getShardManager().getEmoteById(475801484282429450L).getAsMention() +
                                                 "[Join today](https://www.patreon.com/bePatron?c=1830314&rid=2826101)")
                                 ).build())
                         .queue();

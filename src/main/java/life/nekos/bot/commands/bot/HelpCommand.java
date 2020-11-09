@@ -9,10 +9,10 @@ import life.nekos.bot.commons.Formats;
 import life.nekos.bot.commons.Misc;
 import life.nekos.bot.commons.checks.MiscChecks;
 import life.nekos.bot.commons.db.Models;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.Permission;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.MessageEmbed;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 
 import java.text.MessageFormat;
 import java.util.HashMap;
@@ -46,7 +46,7 @@ public class HelpCommand implements Command {
         return new EmbedBuilder()
                 .setAuthor(
                         msg.getJDA().getSelfUser().getName() + " life.nekos.bot.Command info",
-                        msg.getJDA().asBot().getInviteUrl(Permission.ADMINISTRATOR),
+                        msg.getJDA().getInviteUrl(Permission.ADMINISTRATOR),
                         msg.getJDA().getSelfUser().getEffectiveAvatarUrl())
                 .addField(
                         Formats.info("Info"),
@@ -112,7 +112,7 @@ public class HelpCommand implements Command {
         em.setFooter(MessageFormat.format("Help requested by {0} | {1}", trigger.getAuthor().getName(), Misc.now()), trigger.getAuthor().getEffectiveAvatarUrl());
         em.setAuthor(
                 trigger.getJDA().getSelfUser().getName() + " help " + Formats.MAGIC_EMOTE,
-                trigger.getJDA().asBot().getInviteUrl(Permission.ADMINISTRATOR),
+                trigger.getJDA().getInviteUrl(Permission.ADMINISTRATOR),
                 trigger.getJDA().getSelfUser().getEffectiveAvatarUrl());
         MessageEmbed embed = em.build();
 

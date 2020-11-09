@@ -8,10 +8,10 @@ import life.nekos.bot.commons.Formats;
 import life.nekos.bot.commons.Misc;
 import life.nekos.bot.commons.checks.UserChecks;
 import life.nekos.bot.commons.db.Models;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.Permission;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.TextChannel;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.TextChannel;
 
 import java.text.MessageFormat;
 import java.util.Map;
@@ -32,7 +32,7 @@ public class SettingsCommand implements Command {
     public void execute(Message event, Object... argo) {
         String args = (String) argo[0];
         TextChannel ch = event.getTextChannel();
-        Map g = Models.getGuild(event.getGuild().getId());
+        Map<String, Object> g = Models.getGuild(event.getGuild().getId());
         String gp = Models.getPrefix(event);
         String[] arg = args.trim().split(" ");
         if (args.length() == 0) {
@@ -40,7 +40,7 @@ public class SettingsCommand implements Command {
                     new EmbedBuilder()
                             .setAuthor(
                                     event.getJDA().getSelfUser().getName(),
-                                    event.getJDA().asBot().getInviteUrl(Permission.ADMINISTRATOR),
+                                    event.getJDA().getInviteUrl(Permission.ADMINISTRATOR),
                                     event.getJDA().getSelfUser().getEffectiveAvatarUrl())
                             .setColor(Colors.getEffectiveColor(event))
                             .addField(
@@ -90,7 +90,7 @@ public class SettingsCommand implements Command {
                             new EmbedBuilder()
                                     .setAuthor(
                                             event.getJDA().getSelfUser().getName(),
-                                            event.getJDA().asBot().getInviteUrl(),
+                                            event.getJDA().getInviteUrl(),
                                             event.getJDA().getSelfUser().getEffectiveAvatarUrl())
                                     .setColor(Colors.getEffectiveColor(event))
                                     .addField(
@@ -120,7 +120,7 @@ public class SettingsCommand implements Command {
                         new EmbedBuilder()
                                 .setAuthor(
                                         event.getJDA().getSelfUser().getName(),
-                                        event.getJDA().asBot().getInviteUrl(Permission.ADMINISTRATOR),
+                                        event.getJDA().getInviteUrl(Permission.ADMINISTRATOR),
                                         event.getJDA().getSelfUser().getEffectiveAvatarUrl())
                                 .setColor(Colors.getRndColor())
                                 .addField(
@@ -153,7 +153,7 @@ public class SettingsCommand implements Command {
                                 new EmbedBuilder()
                                         .setAuthor(
                                                 event.getJDA().getSelfUser().getName(),
-                                                event.getJDA().asBot().getInviteUrl(),
+                                                event.getJDA().getInviteUrl(),
                                                 event.getJDA().getSelfUser().getEffectiveAvatarUrl())
                                         .setColor(Colors.getEffectiveColor(event))
                                         .addField(
@@ -187,7 +187,7 @@ public class SettingsCommand implements Command {
                                 new EmbedBuilder()
                                         .setAuthor(
                                                 event.getJDA().getSelfUser().getName(),
-                                                event.getJDA().asBot().getInviteUrl(Permission.ADMINISTRATOR),
+                                                event.getJDA().getInviteUrl(Permission.ADMINISTRATOR),
                                                 event.getJDA().getSelfUser().getEffectiveAvatarUrl())
                                         .setColor(Colors.getEffectiveColor(event))
                                         .addField(
@@ -226,7 +226,7 @@ public class SettingsCommand implements Command {
                         new EmbedBuilder()
                                 .setAuthor(
                                         event.getJDA().getSelfUser().getName(),
-                                        event.getJDA().asBot().getInviteUrl(Permission.ADMINISTRATOR),
+                                        event.getJDA().getInviteUrl(Permission.ADMINISTRATOR),
                                         event.getJDA().getSelfUser().getEffectiveAvatarUrl())
                                 .setColor(Colors.getEffectiveColor(event))
                                 .addField(

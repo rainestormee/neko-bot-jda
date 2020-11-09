@@ -6,7 +6,7 @@ import life.nekos.bot.Command;
 import life.nekos.bot.commons.SendNeko;
 import life.nekos.bot.commons.checks.BotChecks;
 import life.nekos.bot.commons.db.Models;
-import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.api.entities.Message;
 
 @CommandDescription(
         name = "release",

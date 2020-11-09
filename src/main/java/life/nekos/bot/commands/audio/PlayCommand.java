@@ -9,9 +9,9 @@ import life.nekos.bot.commons.Colors;
 import life.nekos.bot.commons.Formats;
 import life.nekos.bot.commons.checks.BotChecks;
 import life.nekos.bot.commons.db.Models;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.Permission;
-import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.Message;
 
 import java.text.MessageFormat;
 
@@ -61,7 +61,7 @@ public class PlayCommand implements Command {
                         .queue(
                                 msg ->
                                         msg.addReaction(
-                                                msg.getJDA().asBot().getShardManager().getEmoteById(Formats.getEmoteID(Formats.PLAY_EMOTE)))
+                                                msg.getJDA().getShardManager().getEmoteById(Formats.getEmoteID(Formats.PLAY_EMOTE)))
                                                 .queue());
             } else if (musicManager.player.getPlayingTrack() != null) {
                 message
@@ -70,7 +70,7 @@ public class PlayCommand implements Command {
                                 new EmbedBuilder()
                                         .setAuthor(
                                                 Formats.error("Missing Args"),
-                                                message.getJDA().asBot().getInviteUrl(Permission.ADMINISTRATOR),
+                                                message.getJDA().getInviteUrl(Permission.ADMINISTRATOR),
                                                 message.getJDA().getSelfUser().getEffectiveAvatarUrl())
                                         .addField(
                                                 Formats.info("Info"),
@@ -86,7 +86,7 @@ public class PlayCommand implements Command {
                                 new EmbedBuilder()
                                         .setAuthor(
                                                 Formats.error("Missing Args"),
-                                                message.getJDA().asBot().getInviteUrl(Permission.ADMINISTRATOR),
+                                                message.getJDA().getInviteUrl(Permission.ADMINISTRATOR),
                                                 message.getJDA().getSelfUser().getEffectiveAvatarUrl())
                                         .addField(
                                                 Formats.info("Info"),
@@ -99,7 +99,7 @@ public class PlayCommand implements Command {
         } else {
             AudioHandler.loadAndPlay(message, args, false);
             message
-                    .addReaction(message.getJDA().asBot().getShardManager().getEmoteById(Formats.getEmoteID(Formats.PLAY_EMOTE)))
+                    .addReaction(message.getJDA().getShardManager().getEmoteById(Formats.getEmoteID(Formats.PLAY_EMOTE)))
                     .queue();
         }
     }

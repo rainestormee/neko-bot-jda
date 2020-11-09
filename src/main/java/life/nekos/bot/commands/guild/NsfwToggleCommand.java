@@ -5,10 +5,10 @@ import com.github.rainestormee.jdacommand.CommandDescription;
 import life.nekos.bot.Command;
 import life.nekos.bot.commons.Formats;
 import life.nekos.bot.commons.checks.BotChecks;
-import net.dv8tion.jda.core.Permission;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.managers.ChannelManager;
-import net.dv8tion.jda.core.utils.PermissionUtil;
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.managers.ChannelManager;
+import net.dv8tion.jda.internal.utils.PermissionUtil;
 
 import java.text.MessageFormat;
 
@@ -40,7 +40,7 @@ public class NsfwToggleCommand implements Command {
                     .queue();
             return;
         }
-        ChannelManager cm = new ChannelManager(message.getTextChannel());
+        ChannelManager cm = message.getTextChannel().getManager();
         if (message.getTextChannel().isNSFW()) {
             cm.setNSFW(false).queue();
             message

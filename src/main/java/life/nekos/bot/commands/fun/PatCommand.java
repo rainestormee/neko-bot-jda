@@ -92,9 +92,9 @@ import life.nekos.bot.commons.Formats;
 import life.nekos.bot.commons.apis.Nekos;
 import life.nekos.bot.commons.checks.BotChecks;
 import life.nekos.bot.commons.db.Models;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.User;
 
 import java.awt.*;
 import java.util.List;
@@ -105,7 +105,6 @@ import java.util.List;
         attributes = {@CommandAttribute(key = "fun")},
         description = "Pat someone \\o/"
 )
-@SuppressWarnings("unchecked")
 public class PatCommand implements Command {
     @Override
     public void execute(Message message, Object... args) {

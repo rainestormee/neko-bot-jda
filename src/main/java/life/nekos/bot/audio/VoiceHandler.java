@@ -1,8 +1,9 @@
 package life.nekos.bot.audio;
 
 import life.nekos.bot.NekoBot;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.VoiceChannel;
+import net.dv8tion.jda.api.audio.AudioSendHandler;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.VoiceChannel;
 
 import static life.nekos.bot.audio.AudioHandler.getMusicManager;
 
@@ -44,7 +45,7 @@ public class VoiceHandler {
             message
                     .getGuild()
                     .getAudioManager()
-                    .setSendingHandler(getMusicManager(message.getGuild()).sendHandler);
+                    .setSendingHandler((AudioSendHandler) getMusicManager(message.getGuild()).sendHandler);
             message
                     .getGuild()
                     .getAudioManager()

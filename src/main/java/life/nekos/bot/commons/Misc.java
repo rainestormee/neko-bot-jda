@@ -1,15 +1,15 @@
 package life.nekos.bot.commons;
 
+import club.minnced.discord.webhook.WebhookClient;
+import club.minnced.discord.webhook.WebhookClientBuilder;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import life.nekos.bot.NekoBot;
 import life.nekos.bot.commons.apis.Nekos;
-import net.dv8tion.jda.core.entities.Icon;
-import net.dv8tion.jda.core.entities.Member;
-import net.dv8tion.jda.core.entities.User;
-import net.dv8tion.jda.core.managers.GuildManager;
-import net.dv8tion.jda.webhook.WebhookClient;
-import net.dv8tion.jda.webhook.WebhookClientBuilder;
+import net.dv8tion.jda.api.entities.Icon;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.managers.GuildManager;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -54,7 +54,7 @@ public class Misc {
                 URLConnection connection = url.openConnection();
                 connection.connect();
                 Icon icon = Icon.from(connection.getInputStream());
-                GuildManager gm = new GuildManager(getHOME());
+                GuildManager gm = getHOME().getManager();
                 gm.setIcon(icon).queue();
                 getJDA().getSelfUser().getManager().setAvatar(icon).queue();
                 NekoBot.log.info(

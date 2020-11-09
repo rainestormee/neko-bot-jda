@@ -4,10 +4,10 @@ import com.github.rainestormee.jdacommand.CommandAttribute;
 import com.github.rainestormee.jdacommand.CommandDescription;
 import life.nekos.bot.Command;
 import life.nekos.bot.commons.Formats;
-import net.dv8tion.jda.core.MessageBuilder;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.TextChannel;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.MessageBuilder;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.User;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -105,7 +105,7 @@ public class ShipCommand implements Command {
                                 .append(" ")
                                 .append(Formats.NEKO_C_EMOTE)
                                 .build();
-                channel.sendFile(stream.toByteArray(), "shipped.png", msg).queue();
+                channel.sendMessage(msg).addFile(stream.toByteArray(), "shipped.png").queue();
             } catch (IOException e) {
                 e.printStackTrace();
             }

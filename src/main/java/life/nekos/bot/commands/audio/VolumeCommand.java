@@ -5,19 +5,13 @@ import com.github.rainestormee.jdacommand.CommandDescription;
 import life.nekos.bot.Command;
 import life.nekos.bot.audio.AudioHandler;
 import life.nekos.bot.audio.GuildMusicManager;
-import life.nekos.bot.audio.VoiceHandler;
-import life.nekos.bot.commons.Colors;
 import life.nekos.bot.commons.Formats;
 import life.nekos.bot.commons.db.Models;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.Permission;
-import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.api.entities.Message;
 
 import java.text.MessageFormat;
 
 import static life.nekos.bot.commons.checks.BotChecks.canReact;
-import static life.nekos.bot.commons.checks.UserChecks.audioPerms;
-import static life.nekos.bot.commons.checks.UserChecks.isDonor;
 
 @CommandDescription(
         name = "Volume",
@@ -50,7 +44,7 @@ public class VolumeCommand implements Command {
                                             message1
                                                     .addReaction(
                                                             message1
-                                                                    .getJDA().asBot().getShardManager()
+                                                                    .getJDA().getShardManager()
                                                                     .getEmoteById(Formats.getEmoteID(Formats.getVolEmote(nvol))))
                                                     .queue();
                                         }
@@ -81,7 +75,7 @@ public class VolumeCommand implements Command {
                                         message2
                                                 .addReaction(
                                                         message2
-                                                                .getJDA().asBot().getShardManager()
+                                                                .getJDA().getShardManager()
                                                                 .getEmoteById(Formats.getEmoteID(Formats.getVolEmote(vol))))
                                                 .queue();
                                     }
@@ -97,7 +91,7 @@ public class VolumeCommand implements Command {
                                 if (canReact(message3)) {
                                     message3
                                             .addReaction(
-                                                    message3.getJDA().asBot().getShardManager().getEmoteById(Formats.getEmoteID(Formats.PLAY_EMOTE)))
+                                                    message3.getJDA().getShardManager().getEmoteById(Formats.getEmoteID(Formats.PLAY_EMOTE)))
                                             .queue();
                                 }
                             });

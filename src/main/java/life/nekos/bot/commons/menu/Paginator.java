@@ -16,18 +16,18 @@
 package life.nekos.bot.commons.menu;
 
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.MessageBuilder;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.MessageChannel;
-import net.dv8tion.jda.core.entities.Role;
-import net.dv8tion.jda.core.entities.User;
-import net.dv8tion.jda.core.events.message.GenericMessageEvent;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.core.events.message.react.MessageReactionAddEvent;
-import net.dv8tion.jda.core.exceptions.PermissionException;
-import net.dv8tion.jda.core.requests.RestAction;
-import net.dv8tion.jda.core.utils.Checks;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.MessageBuilder;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.events.message.GenericMessageEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
+import net.dv8tion.jda.api.exceptions.PermissionException;
+import net.dv8tion.jda.api.requests.RestAction;
+import net.dv8tion.jda.internal.utils.Checks;
 
 import java.awt.*;
 import java.util.Arrays;
@@ -345,7 +345,7 @@ public class Paginator extends Menu {
         MessageBuilder mbuilder = new MessageBuilder();
         EmbedBuilder ebuilder = new EmbedBuilder();
         int start = (pageNum - 1) * itemsPerPage;
-        int end = strings.size() < pageNum * itemsPerPage ? strings.size() : pageNum * itemsPerPage;
+        int end = Math.min(strings.size(), pageNum * itemsPerPage);
         if (columns == 1) {
             StringBuilder sbuilder = new StringBuilder();
             for (int i = start; i < end; i++)
@@ -430,7 +430,7 @@ public class Paginator extends Menu {
         }
 
         /**
-         * Sets the {@link Color Color} of the {@link net.dv8tion.jda.core.entities.MessageEmbed
+         * Sets the {@link Color Color} of the {@link net.dv8tion.jda.api.entities.MessageEmbed
          * MessageEmbed}.
          *
          * @param color The Color of the MessageEmbed
@@ -442,7 +442,7 @@ public class Paginator extends Menu {
         }
 
         /**
-         * Sets the {@link Color Color} of the {@link net.dv8tion.jda.core.entities.MessageEmbed
+         * Sets the {@link Color Color} of the {@link net.dv8tion.jda.api.entities.MessageEmbed
          * MessageEmbed}, relative to the total page number and the current page as determined by the
          * provided {@link BiFunction BiFunction}. <br>
          * As the page changes, the BiFunction will re-process the current page number and the total
@@ -636,7 +636,7 @@ public class Paginator extends Menu {
 
         /**
          * Sets the {@link Paginator Paginator} to traverse left or right when a provided text input is
-         * sent in the form of a Message to the {@link net.dv8tion.jda.core.entities.Channel Channel}
+         * sent in the form of a Message to the {@link net.dv8tion.jda.api.entities.Invite.Channel Channel}
          * the menu is displayed in.
          *
          * <p>If one or both these parameters are provided {@code null} this resets both of them and

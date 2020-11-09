@@ -7,10 +7,10 @@ import life.nekos.bot.Command;
 import life.nekos.bot.audio.AudioHandler;
 import life.nekos.bot.commons.Colors;
 import life.nekos.bot.commons.Formats;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.Permission;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.MessageEmbed;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 
 import java.text.MessageFormat;
 
@@ -37,7 +37,7 @@ public class BackCommand implements Command {
                     new EmbedBuilder()
                             .setAuthor(
                                     message.getJDA().getSelfUser().getName(),
-                                    message.getJDA().asBot().getInviteUrl(Permission.ADMINISTRATOR),
+                                    message.getJDA().getInviteUrl(Permission.ADMINISTRATOR),
                                     message.getJDA().getSelfUser().getEffectiveAvatarUrl())
                             .addField(
                                     Formats.info("Now Playing " + Formats.BACK_EMOTE),

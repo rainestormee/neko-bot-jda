@@ -4,10 +4,8 @@
 package life.nekos.bot;
 
 import ch.qos.logback.classic.Logger;
-import com.github.rainestormee.jdacommand.AbstractCommand;
 import com.github.rainestormee.jdacommand.CommandHandler;
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
-import com.sedmelluq.discord.lavaplayer.jdaudp.NativeAudioSendFactory;
 import com.sedmelluq.discord.lavaplayer.player.AudioConfiguration;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
@@ -24,13 +22,13 @@ import life.nekos.bot.audio.pornhub.PornHubAudioSourceManager;
 import life.nekos.bot.audio.redtube.RedTubeAudioSourceManager;
 import life.nekos.bot.commons.Misc;
 import life.nekos.bot.handlers.EventHandler;
-import life.nekos.bot.handlers.MessageHandler;
+import life.nekos.bot.handlers.RaineCommandHandler;
 import me.sargunvohra.lib.pokekotlin.client.PokeApi;
 import me.sargunvohra.lib.pokekotlin.client.PokeApiClient;
-import net.dv8tion.jda.bot.sharding.DefaultShardManagerBuilder;
-import net.dv8tion.jda.core.JDAInfo;
-import net.dv8tion.jda.core.entities.Game;
-import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.api.JDAInfo;
+import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
 import org.slf4j.LoggerFactory;
 
 import java.util.Map;
@@ -81,15 +79,14 @@ public class NekoBot {
                 .setResamplingQuality(AudioConfiguration.ResamplingQuality.HIGH);
 
         musicManagers = new ConcurrentHashMap<>();
-        new CommandRegistry().getCommands().forEach(c -> commandHandler.registerCommand((AbstractCommand<Message>) c));
+        new CommandRegistry().getCommands().forEach(commandHandler::registerCommand);
 
-        new DefaultShardManagerBuilder()
-                .setGame(Game.playing("https://nekos.life"))
-                .setAudioSendFactory(new NativeAudioSendFactory())
-                .addEventListeners(new MessageHandler(commandHandler), new EventHandler(), waiter)
-                .setToken(TOKEN)
-                .setShardsTotal(-1)
-                .build();
-
+        DefaultShardManagerBuilder defaultShardManagerBuilder = DefaultShardManagerBuilder
+                .createDefault(TOKEN)
+                .setActivity(Activity.playing("https://nekos.life"))
+                // .setAudioSendFactory(new NativeAudioSendFactory())
+                .addEventListeners(new RaineCommandHandler(commandHandler), new EventHandler(), waiter)
+                .setShardsTotal(-1);
+        defaultShardManagerBuilder.build();
     }
 }

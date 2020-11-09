@@ -6,9 +6,9 @@ import life.nekos.bot.Command;
 import life.nekos.bot.audio.AudioHandler;
 import life.nekos.bot.commons.Formats;
 import life.nekos.bot.commons.db.Models;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.Permission;
-import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.Message;
 
 import java.text.MessageFormat;
 
@@ -29,7 +29,7 @@ public class PlaylistCommand implements Command {
                             new EmbedBuilder()
                                     .setAuthor(
                                             Formats.error("Missing Args"),
-                                            event.getJDA().asBot().getInviteUrl(Permission.ADMINISTRATOR),
+                                            event.getJDA().getInviteUrl(Permission.ADMINISTRATOR),
                                             event.getJDA().getSelfUser().getEffectiveAvatarUrl())
                                     .addField(
                                             Formats.info("Info"),
@@ -41,7 +41,7 @@ public class PlaylistCommand implements Command {
         } else {
             AudioHandler.loadAndPlay(event, (String) args[0], true);
             event
-                    .addReaction(event.getJDA().asBot().getShardManager().getEmoteById(Formats.getEmoteID(Formats.PLAYLIST_EMOTE)))
+                    .addReaction(event.getJDA().getShardManager().getEmoteById(Formats.getEmoteID(Formats.PLAYLIST_EMOTE)))
                     .queue();
         }
     }

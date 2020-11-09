@@ -5,12 +5,14 @@ import com.google.gson.Gson;
 import life.nekos.bot.NekoBot;
 import life.nekos.bot.commons.db.Models;
 import life.nekos.bot.handlers.EventHandler;
-import net.dv8tion.jda.core.entities.Guild;
-import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Message;
 
 import java.text.MessageFormat;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import static spark.Spark.*;
 
@@ -50,7 +52,7 @@ public class Server {
                         String.format(
                                 "%s Aliases[%s] %s",
                                 c.getDescription().name(),
-                                Arrays.stream(c.getDescription().triggers()).collect(Collectors.joining(", ")),
+                                String.join(", ", c.getDescription().triggers()),
                                 c.getDescription().description()));
             }
         }
@@ -70,7 +72,7 @@ public class Server {
                                     "{0},{1},{2}",
                                     EventHandler.getShards().getShardsRunning(),
                                     EventHandler.getShards().getShardsTotal(),
-                                    EventHandler.getJDA().asBot().getShardManager().getGuilds().size()));
+                                    EventHandler.getJDA().getShardManager().getGuilds().size()));
                 });
 
         get(
@@ -78,15 +80,15 @@ public class Server {
                 (req, res) -> {
                     List<String> Guilds = new ArrayList<>();
                     List<Guild> guilds = EventHandler.getShards().getGuilds();
-                    for (Guild G : guilds) {
+                    for (Guild gui : guilds) {
                         Guilds.add(
                                 String.format(
                                         "{guild: %s(%s), owner: %s(%s),users: %s}",
-                                        G.getName(),
-                                        G.getId(),
-                                        G.getOwner().getEffectiveName(),
-                                        G.getOwner().getUser().getId(),
-                                        G.getMembers().size()));
+                                        gui.getName(),
+                                        gui.getId(),
+                                        gui.getOwner().getEffectiveName(),
+                                        gui.getOwner().getUser().getId(),
+                                        gui.getMembers().size()));
                     }
                     res.type("application/json");
                     return "Guilds: " + g.toJson(Guilds) + " }";

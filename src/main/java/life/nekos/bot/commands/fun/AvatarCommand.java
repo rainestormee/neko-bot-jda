@@ -8,10 +8,10 @@ import life.nekos.bot.commons.Colors;
 import life.nekos.bot.commons.Formats;
 import life.nekos.bot.commons.apis.Nekos;
 import life.nekos.bot.commons.db.Models;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.MessageBuilder;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.MessageBuilder;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.User;
 
 import java.io.IOException;
 import java.net.URL;
@@ -58,13 +58,13 @@ public class AvatarCommand implements Command {
                     String finalName = name;
                     message.getAuthor().openPrivateChannel().queue(pc -> {
                         try {
-                            pc.sendFile(connection.getInputStream(), finalName, msg).queue(r -> message.addReaction("📬").queue());
+                            pc.sendMessage(msg).addFile(connection.getInputStream(), finalName).queue(r -> message.addReaction("📬").queue());
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
                     }, (f) -> message.getChannel().sendMessage("could not send message!!").queue());
                 } else {
-                    message.getTextChannel().sendFile(connection.getInputStream(), name, msg).queue();
+                    message.getTextChannel().sendMessage(msg).addFile(connection.getInputStream(), name).queue();
                 }
                 return;
             }

@@ -8,9 +8,9 @@ import life.nekos.bot.commons.Colors;
 import life.nekos.bot.commons.Formats;
 import life.nekos.bot.commons.apis.Nekos;
 import life.nekos.bot.commons.db.Models;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.Permission;
-import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.Message;
 
 import java.util.concurrent.TimeUnit;
 
@@ -24,6 +24,7 @@ import static life.nekos.bot.commons.checks.UserChecks.isDonor;
         description = "Neko slideshow \\o//\nThis is a Patreon only command"
 )
 public class LewdSildeShowCommand implements Command {
+
     private Slideshow.Builder sbuilder =
             new Slideshow.Builder().setEventWaiter(waiter).setTimeout(1, TimeUnit.MINUTES);
 
@@ -36,7 +37,7 @@ public class LewdSildeShowCommand implements Command {
                             new EmbedBuilder()
                                     .setAuthor(
                                             message.getJDA().getSelfUser().getName(),
-                                            message.getJDA().asBot().getInviteUrl(Permission.ADMINISTRATOR),
+                                            message.getJDA().getInviteUrl(Permission.ADMINISTRATOR),
                                             message.getJDA().getSelfUser().getEffectiveAvatarUrl())
                                     .setColor(Colors.getEffectiveColor(message))
                                     .setDescription(
@@ -44,7 +45,6 @@ public class LewdSildeShowCommand implements Command {
                                                     " Sorry this command is only available to our Patrons.\n"
                                                             + message
                                                             .getJDA()
-                                                            .asBot()
                                                             .getShardManager()
                                                             .getEmoteById(475801484282429450L).getAsMention()
 
@@ -61,7 +61,7 @@ public class LewdSildeShowCommand implements Command {
                             new EmbedBuilder()
                                     .setAuthor(
                                             message.getJDA().getSelfUser().getName(),
-                                            message.getJDA().asBot().getInviteUrl(Permission.ADMINISTRATOR),
+                                            message.getJDA().getInviteUrl(Permission.ADMINISTRATOR),
                                             message.getJDA().getSelfUser().getEffectiveAvatarUrl())
                                     .setColor(Colors.getEffectiveColor(message))
                                     .setDescription(

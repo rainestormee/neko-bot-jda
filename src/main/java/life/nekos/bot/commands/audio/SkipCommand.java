@@ -6,17 +6,16 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import life.nekos.bot.Command;
 import life.nekos.bot.audio.AudioHandler;
 import life.nekos.bot.commons.Formats;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.Permission;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.MessageEmbed;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageEmbed;
+import net.dv8tion.jda.api.entities.User;
 
 import java.text.MessageFormat;
 
 import static life.nekos.bot.audio.AudioHandler.getTimestamp;
 import static life.nekos.bot.commons.checks.BotChecks.canReact;
-import static life.nekos.bot.commons.checks.UserChecks.audioPerms;
 
 @CommandDescription(
         name = "skip",
@@ -37,7 +36,7 @@ public class SkipCommand implements Command {
                                 if (canReact(message)) {
                                     message
                                             .addReaction(
-                                                    message.getJDA().asBot().getShardManager().getEmoteById(Formats.getEmoteID(Formats.PLAY_EMOTE)))
+                                                    message.getJDA().getShardManager().getEmoteById(Formats.getEmoteID(Formats.PLAY_EMOTE)))
                                             .queue();
                                 }
                             });
@@ -53,7 +52,7 @@ public class SkipCommand implements Command {
                             if (canReact(message)) {
                                 message
                                         .addReaction(
-                                                message.getJDA().asBot().getShardManager().getEmoteById(Formats.getEmoteID(Formats.NEXT_EMOTE)))
+                                                message.getJDA().getShardManager().getEmoteById(Formats.getEmoteID(Formats.NEXT_EMOTE)))
                                         .queue();
                             }
                         });
@@ -63,7 +62,7 @@ public class SkipCommand implements Command {
                 new EmbedBuilder()
                         .setAuthor(
                                 event.getJDA().getSelfUser().getName(),
-                                event.getJDA().asBot().getInviteUrl(Permission.ADMINISTRATOR),
+                                event.getJDA().getInviteUrl(Permission.ADMINISTRATOR),
                                 event.getJDA().getSelfUser().getEffectiveAvatarUrl())
                         .addField(
                                 Formats.info("Now Playing " + Formats.PLAY_EMOTE),
@@ -83,7 +82,7 @@ public class SkipCommand implements Command {
                             if (canReact(message)) {
                                 message
                                         .addReaction(
-                                                message.getJDA().asBot().getShardManager().getEmoteById(Formats.getEmoteID(Formats.PLAY_EMOTE)))
+                                                message.getJDA().getShardManager().getEmoteById(Formats.getEmoteID(Formats.PLAY_EMOTE)))
                                         .queue();
                             }
                         });

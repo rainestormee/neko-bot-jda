@@ -8,8 +8,8 @@ import life.nekos.bot.commons.Colors;
 import life.nekos.bot.commons.Formats;
 import life.nekos.bot.commons.apis.Nekos;
 import life.nekos.bot.commons.db.Models;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Message;
 
 import java.util.concurrent.TimeUnit;
 
@@ -23,6 +23,7 @@ import static life.nekos.bot.commons.checks.BotChecks.canDelete;
         description = "neko slideshow"
 )
 public class SildeShowCommand implements Command {
+
     private Slideshow.Builder sbuilder =
             new Slideshow.Builder().setEventWaiter(waiter).setTimeout(1, TimeUnit.MINUTES);
 

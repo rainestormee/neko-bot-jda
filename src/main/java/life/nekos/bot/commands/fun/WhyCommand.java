@@ -7,8 +7,8 @@ import life.nekos.bot.NekoBot;
 import life.nekos.bot.commons.Colors;
 import life.nekos.bot.commons.apis.Nekos;
 import life.nekos.bot.commons.db.Models;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Message;
 
 @CommandDescription(
         name = "why",
@@ -28,7 +28,7 @@ public class WhyCommand implements Command {
                                     .setColor(Colors.getEffectiveColor(message))
                                     .setAuthor(
                                             "Why??",
-                                            message.getJDA().asBot().getInviteUrl(),
+                                            message.getJDA().getInviteUrl(),
                                             message.getJDA().getSelfUser().getEffectiveAvatarUrl())
                                     .setDescription(Nekos.getWhy())
                                     .build())

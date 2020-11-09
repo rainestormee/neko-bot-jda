@@ -8,8 +8,8 @@ import life.nekos.bot.commons.Colors;
 import life.nekos.bot.commons.Formats;
 import life.nekos.bot.commons.apis.Nekos;
 import life.nekos.bot.commons.db.Models;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Message;
 
 @CommandDescription(
         name = "neko",
@@ -18,6 +18,7 @@ import net.dv8tion.jda.core.entities.Message;
         description = "random nekos owO"
 )
 public class NekoCommand implements Command {
+
     @Override
     public void execute(Message trigger, Object... args) {
         Models.statsUp("neko");

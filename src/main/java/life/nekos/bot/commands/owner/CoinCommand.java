@@ -5,8 +5,7 @@ import com.github.rainestormee.jdacommand.CommandDescription;
 import life.nekos.bot.Command;
 import life.nekos.bot.commons.SendNeko;
 import life.nekos.bot.commons.SendPoke;
-import net.dv8tion.jda.core.entities.Message;
-
+import net.dv8tion.jda.api.entities.Message;
 
 @CommandDescription(
         name = "coin",

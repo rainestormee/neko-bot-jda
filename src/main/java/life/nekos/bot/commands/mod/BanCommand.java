@@ -4,8 +4,8 @@ import com.github.rainestormee.jdacommand.CommandAttribute;
 import com.github.rainestormee.jdacommand.CommandDescription;
 import life.nekos.bot.Command;
 import life.nekos.bot.commons.Formats;
-import net.dv8tion.jda.core.entities.Member;
-import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.Message;
 
 import static life.nekos.bot.commons.checks.BotChecks.canBan;
 import static life.nekos.bot.commons.checks.UserChecks.isAdmin;
@@ -21,6 +21,7 @@ import static life.nekos.bot.commons.checks.UserChecks.isAdmin;
         description = "Bans a asshat"
 )
 public class BanCommand implements Command {
+
     @Override
     public void execute(Message message, Object... args) {
         if (message.getMentionedMembers().isEmpty()) {
@@ -36,6 +37,6 @@ public class BanCommand implements Command {
             return;
         }
         Member m = message.getMentionedMembers().get(0);
-        m.getGuild().getController().ban(m, 7).queue(mm -> message.getTextChannel().sendMessage(Formats.info("Banned " + m.getEffectiveName() + ", Nya~")).queue());
+        m.getGuild().ban(m, 7).queue(mm -> message.getTextChannel().sendMessage(Formats.info("Banned " + m.getEffectiveName() + ", Nya~")).queue());
     }
 }

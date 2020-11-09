@@ -8,13 +8,13 @@ import life.nekos.bot.commons.Colors;
 import life.nekos.bot.commons.Formats;
 import life.nekos.bot.commons.Misc;
 import life.nekos.bot.commons.db.Models;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.Permission;
-import net.dv8tion.jda.core.entities.Guild;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.MessageEmbed;
-import net.dv8tion.jda.core.entities.Role;
-import net.dv8tion.jda.core.exceptions.PermissionException;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageEmbed;
+import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.exceptions.PermissionException;
 
 import java.awt.*;
 import java.text.MessageFormat;
@@ -62,7 +62,7 @@ public class RolesCommand implements Command {
                 new EmbedBuilder()
                         .setAuthor(
                                 event.getJDA().getSelfUser().getName(),
-                                event.getJDA().asBot().getInviteUrl(Permission.ADMINISTRATOR),
+                                event.getJDA().getInviteUrl(Permission.ADMINISTRATOR),
                                 event.getJDA().getSelfUser().getEffectiveAvatarUrl())
                         .addField(
                                 Formats.info("Guild roles"),

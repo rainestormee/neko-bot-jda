@@ -6,9 +6,9 @@ import life.nekos.bot.commons.apis.Nekos;
 import life.nekos.bot.commons.checks.BotChecks;
 import life.nekos.bot.commons.db.Models;
 import me.xdrop.fuzzywuzzy.FuzzySearch;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.text.MessageFormat;
 import java.util.List;

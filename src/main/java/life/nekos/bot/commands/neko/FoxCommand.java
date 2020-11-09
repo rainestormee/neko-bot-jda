@@ -8,8 +8,8 @@ import life.nekos.bot.commons.Colors;
 import life.nekos.bot.commons.Formats;
 import life.nekos.bot.commons.apis.Nekos;
 import life.nekos.bot.commons.db.Models;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Message;
 
 @CommandDescription(
         name = "fox",
@@ -17,8 +17,8 @@ import net.dv8tion.jda.core.entities.Message;
         attributes = {@CommandAttribute(key = "dm"), @CommandAttribute(key = "neko")},
         description = "random fox girl"
 )
-@SuppressWarnings("unchecked")
 public class FoxCommand implements Command {
+
     @Override
     public void execute(Message message, Object... args) {
         Models.statsUp("fox");
@@ -33,7 +33,7 @@ public class FoxCommand implements Command {
                                     .build())
                     .queue();
             message
-                    .addReaction(message.getJDA().asBot().getShardManager().getEmoteById(Formats.getEmoteID(Formats.LEWD_EMOTE)))
+                    .addReaction(message.getJDA().getShardManager().getEmoteById(Formats.getEmoteID(Formats.LEWD_EMOTE)))
                     .queue();
         } catch (Exception e) {
             message.getChannel().sendMessage(Formats.error("oh nu, something went wrong :(")).queue();

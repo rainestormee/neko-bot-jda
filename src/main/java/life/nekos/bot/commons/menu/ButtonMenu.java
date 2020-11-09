@@ -16,13 +16,12 @@
 package life.nekos.bot.commons.menu;
 
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.MessageBuilder;
-import net.dv8tion.jda.core.entities.*;
-import net.dv8tion.jda.core.entities.MessageReaction.ReactionEmote;
-import net.dv8tion.jda.core.events.message.react.MessageReactionAddEvent;
-import net.dv8tion.jda.core.requests.RestAction;
-import net.dv8tion.jda.core.utils.Checks;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.MessageBuilder;
+import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
+import net.dv8tion.jda.api.requests.RestAction;
+import net.dv8tion.jda.internal.utils.Checks;
 
 import java.awt.*;
 import java.util.LinkedList;
@@ -42,7 +41,7 @@ public class ButtonMenu extends Menu {
     private final String text;
     private final String description;
     private final List<String> choices;
-    private final Consumer<ReactionEmote> action;
+    private final Consumer<MessageReaction.ReactionEmote> action;
     private final Consumer<Message> finalAction;
 
     ButtonMenu(
@@ -55,7 +54,7 @@ public class ButtonMenu extends Menu {
             String text,
             String description,
             List<String> choices,
-            Consumer<ReactionEmote> action,
+            Consumer<MessageReaction.ReactionEmote> action,
             Consumer<Message> finalAction) {
         super(waiter, users, roles, timeout, unit);
         this.color = color;
@@ -97,7 +96,7 @@ public class ButtonMenu extends Menu {
                         // Get the emote to display.
                         Emote emote;
                         try {
-                            emote = m.getJDA().asBot().getShardManager().getEmoteById(choices.get(i));
+                            emote = m.getJDA().getShardManager().getEmoteById(choices.get(i));
                         } catch (Exception e) {
                             emote = null;
                         }
@@ -170,7 +169,7 @@ public class ButtonMenu extends Menu {
         private Color color;
         private String text;
         private String description;
-        private Consumer<ReactionEmote> action;
+        private Consumer<MessageReaction.ReactionEmote> action;
         private Consumer<Message> finalAction = (m) -> {
         };
 
@@ -208,7 +207,7 @@ public class ButtonMenu extends Menu {
         }
 
         /**
-         * Sets the {@link Color Color} of the {@link net.dv8tion.jda.core.entities.MessageEmbed
+         * Sets the {@link Color Color} of the {@link MessageEmbed
          * MessageEmbed}.
          *
          * @param color The Color of the MessageEmbed
@@ -234,7 +233,7 @@ public class ButtonMenu extends Menu {
         }
 
         /**
-         * Sets the description to be placed in an {@link net.dv8tion.jda.core.entities.MessageEmbed
+         * Sets the description to be placed in an {@link MessageEmbed
          * MessageEmbed}. <br>
          * If this is {@code null}, no MessageEmbed will be displayed
          *
@@ -252,7 +251,7 @@ public class ButtonMenu extends Menu {
          * @param action The Consumer action to perform upon selecting a button
          * @return This builder
          */
-        public Builder setAction(Consumer<ReactionEmote> action) {
+        public Builder setAction(Consumer<MessageReaction.ReactionEmote> action) {
             this.action = action;
             return this;
         }

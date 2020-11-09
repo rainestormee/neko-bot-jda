@@ -5,8 +5,8 @@ import com.github.rainestormee.jdacommand.CommandDescription;
 import life.nekos.bot.Command;
 import life.nekos.bot.commons.Colors;
 import life.nekos.bot.commons.Misc;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Message;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -54,7 +54,7 @@ public class SSHCommand implements Command {
                                 new EmbedBuilder()
                                         .setAuthor(
                                                 trigger.getJDA().getSelfUser().getName(),
-                                                trigger.getJDA().asBot().getInviteUrl(),
+                                                trigger.getJDA().getInviteUrl(),
                                                 trigger.getJDA().getSelfUser().getAvatarUrl())
                                         .setColor(Colors.getEffectiveColor(trigger))
                                         .addField("exec", k, false)
@@ -72,7 +72,7 @@ public class SSHCommand implements Command {
                                 new EmbedBuilder()
                                         .setAuthor(
                                                 trigger.getJDA().getSelfUser().getName(),
-                                                trigger.getJDA().asBot().getInviteUrl(),
+                                                trigger.getJDA().getInviteUrl(),
                                                 trigger.getJDA().getSelfUser().getAvatarUrl())
                                         .setColor(Colors.getEffectiveColor(trigger))
                                         .addField("wump", wump, false)
@@ -95,7 +95,7 @@ public class SSHCommand implements Command {
                                 new EmbedBuilder()
                                         .setAuthor(
                                                 trigger.getJDA().getSelfUser().getName(),
-                                                trigger.getJDA().asBot().getInviteUrl(),
+                                                trigger.getJDA().getInviteUrl(),
                                                 trigger.getJDA().getSelfUser().getAvatarUrl())
                                         .setColor(Colors.getEffectiveColor(trigger))
                                         .addField("err", wump, false)
@@ -112,7 +112,7 @@ public class SSHCommand implements Command {
                             new EmbedBuilder()
                                     .setAuthor(
                                             trigger.getJDA().getSelfUser().getName(),
-                                            trigger.getJDA().asBot().getInviteUrl(),
+                                            trigger.getJDA().getInviteUrl(),
                                             trigger.getJDA().getSelfUser().getAvatarUrl())
                                     .setColor(Colors.getEffectiveColor(trigger))
                                     .addField(

@@ -10,7 +10,7 @@ import life.nekos.bot.commons.Constants;
 import life.nekos.bot.commons.Formats;
 import life.nekos.bot.commons.Misc;
 import life.nekos.bot.commons.db.Models;
-import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.api.entities.Message;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -61,7 +61,7 @@ public class EvalCommand implements Command {
         Binding binding = new Binding();
         binding.setVariable("r", Models.r);
         binding.setVariable("rr", Models.r.table("users").get(e.getAuthor().getId()).run(Models.conn));
-        binding.setVariable("sm", e.getJDA().asBot().getShardManager());
+        binding.setVariable("sm", e.getJDA().getShardManager());
         binding.setVariable(
                 "conn", Models.r.connection().hostname("localhost").port(28015).db("neko").connect());
         binding.setVariable("api", e.getJDA());

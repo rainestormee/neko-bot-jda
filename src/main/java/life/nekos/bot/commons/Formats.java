@@ -3,11 +3,12 @@ package life.nekos.bot.commons;
 import com.google.common.base.CharMatcher;
 import life.nekos.bot.NekoBot;
 import life.nekos.bot.commons.checks.BotChecks;
-import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.JDAInfo;
-import net.dv8tion.jda.core.Permission;
-import net.dv8tion.jda.core.entities.Guild;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.JDAInfo;
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.User;
 
 import java.text.MessageFormat;
 import java.util.Random;
@@ -229,14 +230,14 @@ public class Formats {
                         + "Bots:\r\n{11}\r\n"
                         + "Total Users:\r\n{12}",
                 Formats.NEKO_BOOT_BANNER,
-                jda.asBot().getInviteUrl(Permission.ADMINISTRATOR),
+                jda.getInviteUrl(Permission.ADMINISTRATOR),
                 jda.getSelfUser().getName(),
                 jda.getSelfUser().getId(),
-                jda.asBot().getShardManager().getGuilds().toArray().length,
-                jda.asBot().getShardManager().getShardsTotal(),
-                jda.asBot().getShardManager().getUsers().parallelStream().filter(user -> !user.isBot()).toArray().length,
-                jda.asBot().getShardManager().getUsers().parallelStream().filter(User::isBot).toArray().length,
-                jda.asBot().getShardManager().getUsers().toArray().length,
+                jda.getShardManager().getGuilds().toArray().length,
+                jda.getShardManager().getShardsTotal(),
+                jda.getShardManager().getUsers().parallelStream().filter(user -> !user.isBot()).toArray().length,
+                jda.getShardManager().getUsers().parallelStream().filter(User::isBot).toArray().length,
+                jda.getShardManager().getUsers().toArray().length,
                 HOME.getName(),
                 HOME.getMembers().stream().filter(user -> !user.getUser().isBot()).toArray().length,
                 HOME.getMembers().stream().filter(user -> user.getUser().isBot()).toArray().length,
@@ -281,12 +282,12 @@ public class Formats {
         return text.replace("@everyone", "@\u200beveryone").replace("@here", "@\u200bhere");
     }
 
-    public static String getFullName(net.dv8tion.jda.core.entities.Message msg) {
+    public static String getFullName(Message msg) {
         return MessageFormat.format(
                 "{0}#{1}", msg.getAuthor().getName(), msg.getAuthor().getDiscriminator());
     }
 
-    public static void logCommand(net.dv8tion.jda.core.entities.Message message) {
+    public static void logCommand(Message message) {
         if (BotChecks.isDm(message)) {
             String msg =
                     MessageFormat.format(
@@ -321,7 +322,6 @@ public class Formats {
         if (vol == 0) return VOL_OFF_EMOTE;
         if (vol <= 15) return MUTE_EMOTE;
         if (vol > 16 && vol < 60) return VOL_D_EMOTE;
-        if (vol >= 60) return VOL_UP_EMOTE;
-        else return VOL_UP_EMOTE;
+        return VOL_UP_EMOTE;
     }
 }

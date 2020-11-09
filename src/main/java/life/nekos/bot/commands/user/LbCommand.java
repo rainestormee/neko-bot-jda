@@ -9,8 +9,8 @@ import life.nekos.bot.commons.Colors;
 import life.nekos.bot.commons.Formats;
 import life.nekos.bot.commons.checks.BotChecks;
 import life.nekos.bot.commons.db.Models;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.exceptions.PermissionException;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.exceptions.PermissionException;
 
 import java.text.MessageFormat;
 import java.util.HashMap;
@@ -25,6 +25,7 @@ import static life.nekos.bot.NekoBot.waiter;
         description = "Global leaderboard, lb nekos or lb levels"
 )
 public class LbCommand implements Command {
+
     private final Paginator.Builder pbuilder =
             new Paginator.Builder()
                     .setColumns(1)

@@ -2,8 +2,9 @@ package life.nekos.bot.commons.checks;
 
 import life.nekos.bot.NekoBot;
 import life.nekos.bot.commons.db.Models;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.utils.MiscUtil;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.utils.MiscUtil;
+import net.dv8tion.jda.api.utils.TimeUtil;
 
 import java.text.MessageFormat;
 import java.util.Calendar;
@@ -27,8 +28,8 @@ public class MiscChecks {
 
     public static boolean twoWeeks(Message message) {
         long twoWeeksAgo =
-                ((System.currentTimeMillis() - (14 * 24 * 60 * 60 * 1000)) - MiscUtil.DISCORD_EPOCH)
-                        << MiscUtil.TIMESTAMP_OFFSET;
+                ((System.currentTimeMillis() - (14 * 24 * 60 * 60 * 1000)) - TimeUtil.DISCORD_EPOCH)
+                        << TimeUtil.TIMESTAMP_OFFSET;
         return MiscUtil.parseSnowflake(message.getId()) < twoWeeksAgo;
     }
 

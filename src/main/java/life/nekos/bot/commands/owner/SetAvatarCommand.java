@@ -5,9 +5,9 @@ import com.github.rainestormee.jdacommand.CommandDescription;
 import life.nekos.bot.Command;
 import life.nekos.bot.commons.Formats;
 import life.nekos.bot.commons.apis.Nekos;
-import net.dv8tion.jda.core.MessageBuilder;
-import net.dv8tion.jda.core.entities.Icon;
-import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.api.MessageBuilder;
+import net.dv8tion.jda.api.entities.Icon;
+import net.dv8tion.jda.api.entities.Message;
 
 import java.net.URL;
 import java.net.URLConnection;
@@ -23,6 +23,7 @@ import static life.nekos.bot.commons.Misc.UA;
         description = "Sets the bot avatar, --random for a random new one"
 )
 public class SetAvatarCommand implements Command {
+
     @Override
     public void execute(Message message, Object... args) {
         if (((String) args[0]).toLowerCase().contains("--random")) {
@@ -44,7 +45,7 @@ public class SetAvatarCommand implements Command {
                 conn.connect();
                 message
                         .getTextChannel()
-                        .sendFile(conn.getInputStream(), "NewAvatar.png", msg)
+                        .sendMessage(msg).addFile(conn.getInputStream(), "NewAvatar.png")
                         .queue(
                                 message1 ->
                                         message
@@ -74,12 +75,13 @@ public class SetAvatarCommand implements Command {
             conn.connect();
             message
                     .getTextChannel()
-                    .sendFile(conn.getInputStream(), "NewAvatar.png", msg)
+                    .sendMessage(msg)
+                    .addFile(conn.getInputStream(), "NewAvatar.png")
                     .queue(
                             message1 ->
                                     message
                                             .addReaction(
-                                                    message.getJDA().asBot().getShardManager().getEmoteById(Formats.getEmoteID(Formats.NEKO_C_EMOTE)))
+                                                    message.getJDA().getShardManager().getEmoteById(Formats.getEmoteID(Formats.NEKO_C_EMOTE)))
                                             .queue());
         } catch (Exception e) {
             e.printStackTrace();

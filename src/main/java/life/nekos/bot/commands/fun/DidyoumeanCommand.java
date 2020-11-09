@@ -5,7 +5,7 @@ import com.github.rainestormee.jdacommand.CommandDescription;
 import life.nekos.bot.Command;
 import life.nekos.bot.commons.Formats;
 import life.nekos.bot.commons.apis.AlexApis;
-import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.api.entities.Message;
 
 import java.util.regex.Pattern;
 

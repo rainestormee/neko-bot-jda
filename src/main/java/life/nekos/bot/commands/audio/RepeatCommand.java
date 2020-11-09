@@ -7,7 +7,7 @@ import life.nekos.bot.Command;
 import life.nekos.bot.audio.AudioHandler;
 import life.nekos.bot.audio.GuildMusicManager;
 import life.nekos.bot.commons.Formats;
-import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.api.entities.Message;
 
 import static life.nekos.bot.commons.checks.BotChecks.canReact;
 import static life.nekos.bot.commons.checks.UserChecks.audioPerms;
@@ -34,7 +34,7 @@ public class RepeatCommand implements Command {
                                 if (canReact(m)) {
                                     m
                                             .addReaction(
-                                                    m.getJDA().asBot().getShardManager().getEmoteById(Formats.getEmoteID(Formats.PLAY_EMOTE)))
+                                                    m.getJDA().getShardManager().getEmoteById(Formats.getEmoteID(Formats.PLAY_EMOTE)))
                                             .queue();
                                 }
                             });

@@ -16,7 +16,7 @@
 package life.nekos.bot.commons.menu;
 
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
-import net.dv8tion.jda.core.entities.*;
+import net.dv8tion.jda.api.entities.*;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;

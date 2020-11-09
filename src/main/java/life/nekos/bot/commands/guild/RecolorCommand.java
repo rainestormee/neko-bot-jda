@@ -8,11 +8,11 @@ import life.nekos.bot.commons.Colors;
 import life.nekos.bot.commons.Formats;
 import life.nekos.bot.commons.checks.BotChecks;
 import life.nekos.bot.commons.menu.ButtonMenu;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.Permission;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.Role;
-import net.dv8tion.jda.core.utils.PermissionUtil;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.internal.utils.PermissionUtil;
 
 import java.util.concurrent.TimeUnit;
 
@@ -37,7 +37,7 @@ public class RecolorCommand implements Command {
                             new EmbedBuilder()
                                     .setAuthor(
                                             message.getJDA().getSelfUser().getName(),
-                                            message.getJDA().asBot().getInviteUrl(Permission.ADMINISTRATOR),
+                                            message.getJDA().getInviteUrl(Permission.ADMINISTRATOR),
                                             message.getJDA().getSelfUser().getEffectiveAvatarUrl())
                                     .setColor(Colors.getEffectiveColor(message))
                                     .setDescription(
@@ -45,7 +45,6 @@ public class RecolorCommand implements Command {
                                                     " Sorry this command is only available to our Patrons.\n"
                                                             + message
                                                             .getJDA()
-                                                            .asBot()
                                                             .getShardManager()
                                                             .getEmoteById(475801484282429450L).getAsMention()
 
@@ -79,12 +78,10 @@ public class RecolorCommand implements Command {
                 .setChoices(
                         message
                                 .getJDA()
-                                .asBot()
                                 .getShardManager()
                                 .getEmoteById(Formats.getEmoteID(Formats.YES_EMOTE)),
                         message
                                 .getJDA()
-                                .asBot()
                                 .getShardManager()
                                 .getEmoteById(Formats.getEmoteID(Formats.NO_EMOTE)))
                 .setEventWaiter(NekoBot.waiter)
@@ -100,9 +97,7 @@ public class RecolorCommand implements Command {
                             if (re.getEmote()
                                     .equals(
                                             message
-                                                    .getJDA()
-                                                    .asBot()
-                                                    .getShardManager()
+                                                    .getJDA().getShardManager()
                                                     .getEmoteById(Formats.getEmoteID(Formats.YES_EMOTE)))) {
                                 message
                                         .getGuild()
