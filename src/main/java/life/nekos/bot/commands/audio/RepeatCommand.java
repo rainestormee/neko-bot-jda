@@ -1,9 +1,9 @@
 package life.nekos.bot.commands.audio;
 
-import life.nekos.bot.Command;
 import com.github.rainestormee.jdacommand.CommandAttribute;
 import com.github.rainestormee.jdacommand.CommandDescription;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
+import life.nekos.bot.Command;
 import life.nekos.bot.audio.AudioHandler;
 import life.nekos.bot.audio.GuildMusicManager;
 import life.nekos.bot.commons.Colors;
@@ -17,43 +17,43 @@ import static life.nekos.bot.commons.checks.UserChecks.audioPrems;
 import static life.nekos.bot.commons.checks.UserChecks.isDonor;
 
 @CommandDescription(
-		name = "Repeat",
-		triggers = {"loop", "repeat"},
-		attributes = {@CommandAttribute(key = "music"), @CommandAttribute(key = "dm")},
-		description =
-				"Set repeat for a track, or --all to loop the entire queue\nThis is a Patreon only command"
+        name = "Repeat",
+        triggers = {"loop", "repeat"},
+        attributes = {@CommandAttribute(key = "music"), @CommandAttribute(key = "dm")},
+        description =
+                "Set repeat for a track, or --all to loop the entire queue\nThis is a Patreon only command"
 )
 public class RepeatCommand implements Command {
     @Override
     public void execute(Message message, Object... args) {
-	    if (!isDonor(message.getAuthor())) {
-		    message
-				    .getChannel()
-				    .sendMessage(
-						    new EmbedBuilder()
-								    .setAuthor(
-										    message.getJDA().getSelfUser().getName(),
-										    message.getJDA().asBot().getInviteUrl(Permission.ADMINISTRATOR),
-										    message.getJDA().getSelfUser().getEffectiveAvatarUrl())
-								    .setColor(Colors.getEffectiveColor(message))
-								    .setDescription(
-										    Formats.error(
-												    " Sorry this command is only available to our Patrons.\n"
-														    + message
-														    .getJDA()
-														    .asBot()
-														    .getShardManager()
-														    .getEmoteById(475801484282429450L).getAsMention()
+        if (!isDonor(message.getAuthor())) {
+            message
+                    .getChannel()
+                    .sendMessage(
+                            new EmbedBuilder()
+                                    .setAuthor(
+                                            message.getJDA().getSelfUser().getName(),
+                                            message.getJDA().asBot().getInviteUrl(Permission.ADMINISTRATOR),
+                                            message.getJDA().getSelfUser().getEffectiveAvatarUrl())
+                                    .setColor(Colors.getEffectiveColor(message))
+                                    .setDescription(
+                                            Formats.error(
+                                                    " Sorry this command is only available to our Patrons.\n"
+                                                            + message
+                                                            .getJDA()
+                                                            .asBot()
+                                                            .getShardManager()
+                                                            .getEmoteById(475801484282429450L).getAsMention()
 
-														    + "[Join Today](https://www.patreon.com/bePatron?c=1830314&rid=2826101)"))
-								    .build())
-				    .queue();
-		    return;
-	    }
-	    GuildMusicManager musicManager = AudioHandler.getMusicManager(message.getGuild());
+                                                            + "[Join Today](https://www.patreon.com/bePatron?c=1830314&rid=2826101)"))
+                                    .build())
+                    .queue();
+            return;
+        }
+        GuildMusicManager musicManager = AudioHandler.getMusicManager(message.getGuild());
         String[] arg = ((String) args[0]).trim().split(" ");
-	    if (!message.getMember().getVoiceState().inVoiceChannel()) {
-		    message
+        if (!message.getMember().getVoiceState().inVoiceChannel()) {
+            message
                     .getChannel()
                     .sendMessage(
                             Formats.error(
@@ -63,23 +63,23 @@ public class RepeatCommand implements Command {
             return;
         }
         if (musicManager.scheduler.queue.isEmpty()) {
-	        message
+            message
                     .getChannel()
                     .sendMessage("oh? The playlist is empty! play something first nya~")
                     .queue(
-		                    m -> {
-			                    if (canReact(m)) {
-				                    m
+                            m -> {
+                                if (canReact(m)) {
+                                    m
                                             .addReaction(
-		                                            m.getJDA().asBot().getShardManager().getEmoteById(Formats.getEmoteID(Formats.PLAY_EMOTE)))
+                                                    m.getJDA().asBot().getShardManager().getEmoteById(Formats.getEmoteID(Formats.PLAY_EMOTE)))
                                             .queue();
                                 }
                             });
             return;
         }
         AudioTrack Track = musicManager.player.getPlayingTrack();
-	    if (!audioPrems(message, Track)) {
-		    message
+        if (!audioPrems(message, Track)) {
+            message
                     .getChannel()
                     .sendMessage(
                             Formats.error(
@@ -92,8 +92,8 @@ public class RepeatCommand implements Command {
             if (arg[0].equalsIgnoreCase("all")) {
                 musicManager.scheduler.setLoop(false);
                 musicManager.scheduler.setLoopall(
-		                !AudioHandler.getMusicManager(message.getGuild()).scheduler.isLoopall());
-	            message
+                        !AudioHandler.getMusicManager(message.getGuild()).scheduler.isLoopall());
+                message
                         .getChannel()
                         .sendMessage(
                                 "Alright nya, I have "
@@ -110,8 +110,8 @@ public class RepeatCommand implements Command {
         {
             musicManager.scheduler.setLoopall(false);
             musicManager.scheduler.setLoop(
-		            !AudioHandler.getMusicManager(message.getGuild()).scheduler.isLoop());
-	        message
+                    !AudioHandler.getMusicManager(message.getGuild()).scheduler.isLoop());
+            message
                     .getChannel()
                     .sendMessage(
                             "Alright nya, I have "

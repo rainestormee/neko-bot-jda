@@ -1,9 +1,9 @@
 package life.nekos.bot.commands.neko;
 
-import life.nekos.bot.Command;
 import com.github.rainestormee.jdacommand.CommandAttribute;
 import com.github.rainestormee.jdacommand.CommandDescription;
 import com.jagrosh.jdautilities.menu.Slideshow;
+import life.nekos.bot.Command;
 import life.nekos.bot.commons.Colors;
 import life.nekos.bot.commons.Formats;
 import life.nekos.bot.commons.apis.Nekos;

@@ -1,8 +1,8 @@
 package life.nekos.bot.commands.neko;
 
-import life.nekos.bot.Command;
 import com.github.rainestormee.jdacommand.CommandAttribute;
 import com.github.rainestormee.jdacommand.CommandDescription;
+import life.nekos.bot.Command;
 import life.nekos.bot.NekoBot;
 import life.nekos.bot.commons.Formats;
 import life.nekos.bot.commons.apis.Nekos;
@@ -15,7 +15,7 @@ import java.awt.*;
 @CommandDescription(
         name = "lewd",
         triggers = {"lewd", "owo", "wew", "nyaaaa"},
-		attributes = {@CommandAttribute(key = "neko")},
+        attributes = {@CommandAttribute(key = "neko")},
         description = "random nekos owO"
 )
 public class LewdCommand implements Command {

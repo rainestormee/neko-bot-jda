@@ -1,8 +1,8 @@
 package life.nekos.bot.commands.nsfw;
 
-import life.nekos.bot.Command;
 import com.github.rainestormee.jdacommand.CommandAttribute;
 import com.github.rainestormee.jdacommand.CommandDescription;
+import life.nekos.bot.Command;
 import life.nekos.bot.NekoBot;
 import life.nekos.bot.commons.Colors;
 import life.nekos.bot.commons.Formats;
@@ -14,7 +14,7 @@ import net.dv8tion.jda.core.entities.Message;
 @CommandDescription(
         name = "kuni",
         triggers = {"kuni", "Kuni"},
-		attributes = {@CommandAttribute(key = "dm"), @CommandAttribute(key = "nsfw"), @CommandAttribute(key = "PayWall")},
+        attributes = {@CommandAttribute(key = "dm"), @CommandAttribute(key = "nsfw"), @CommandAttribute(key = "PayWall")},
         description = "random kuni owO"
 )
 public class KuniCommand implements Command {

@@ -1,8 +1,8 @@
 package life.nekos.bot.commands.user;
 
-import life.nekos.bot.Command;
 import com.github.rainestormee.jdacommand.CommandAttribute;
 import com.github.rainestormee.jdacommand.CommandDescription;
+import life.nekos.bot.Command;
 import life.nekos.bot.commons.Colors;
 import life.nekos.bot.commons.Formats;
 import life.nekos.bot.commons.apis.Nekos;
@@ -29,7 +29,7 @@ import java.util.List;
 public class SendCommand implements Command {
     @Override
     public void execute(Message event, Object... argo) {
-    	String args = (String) argo[0];
+        String args = (String) argo[0];
         Models.statsUp("send");
         User author = event.getAuthor();
         TextChannel ch = event.getTextChannel();
@@ -52,7 +52,7 @@ public class SendCommand implements Command {
                                             String neko = Nekos.getNeko();
                                             pm.sendMessage(
                                                     new EmbedBuilder()
-		                                                    .setDescription(Formats.NEKO_C_EMOTE)
+                                                            .setDescription(Formats.NEKO_C_EMOTE)
                                                             .setTitle(
                                                                     MessageFormat.format(
                                                                             "hey {0}, {1} has sent you a {2}",
@@ -82,43 +82,43 @@ public class SendCommand implements Command {
                 ch.sendMessage(MessageFormat.format("Good job {0}", event.getAuthor().getAsMention()))
                         .queue();
                 break;
-	        case "lewd":
-		        for (User m : users) {
-			        m.openPrivateChannel()
-					        .queue(
-							        (PrivateChannel pm) -> {
-								        try {
-									        String neko = Nekos.getNeko();
-									        pm.sendMessage(
-											        new EmbedBuilder()
-													        .setDescription(Formats.NEKO_C_EMOTE)
-													        .setTitle(
-															        MessageFormat.format(
-																	        "hey {0}, {1} has sent you a {2}",
-																	        m.getName(), event.getAuthor().getName(), arg[0]),
-															        neko)
-													        .setColor(Colors.getDominantColor(m))
-													        .setImage(neko)
-													        .build())
-											        .queue(
-													        null,
-													        b ->
-															        ch.sendMessage(
-																	        MessageFormat.format(
-																			        "hey, This {0} has me blocked or there filter turned on \uD83D\uDD95",
-																			        m.getName()))
-																	        .queue());
+            case "lewd":
+                for (User m : users) {
+                    m.openPrivateChannel()
+                            .queue(
+                                    (PrivateChannel pm) -> {
+                                        try {
+                                            String neko = Nekos.getNeko();
+                                            pm.sendMessage(
+                                                    new EmbedBuilder()
+                                                            .setDescription(Formats.NEKO_C_EMOTE)
+                                                            .setTitle(
+                                                                    MessageFormat.format(
+                                                                            "hey {0}, {1} has sent you a {2}",
+                                                                            m.getName(), event.getAuthor().getName(), arg[0]),
+                                                                    neko)
+                                                            .setColor(Colors.getDominantColor(m))
+                                                            .setImage(neko)
+                                                            .build())
+                                                    .queue(
+                                                            null,
+                                                            b ->
+                                                                    ch.sendMessage(
+                                                                            MessageFormat.format(
+                                                                                    "hey, This {0} has me blocked or there filter turned on \uD83D\uDD95",
+                                                                                    m.getName()))
+                                                                            .queue());
 
-								        } catch (Exception e) {
-									        e.printStackTrace();
-								        }
-							        },
-							        Throwable::printStackTrace);
-		        }
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                    },
+                                    Throwable::printStackTrace);
+                }
 
-		        ch.sendMessage(MessageFormat.format("Good job {0}", event.getAuthor().getAsMention()))
-				        .queue();
-		        break;
+                ch.sendMessage(MessageFormat.format("Good job {0}", event.getAuthor().getAsMention()))
+                        .queue();
+                break;
             default:
                 // send com help
 

@@ -21,7 +21,7 @@ import static life.nekos.bot.audio.AudioHandler.getTimestamp;
         name = "Back",
         triggers = {"back", "previous", "b"},
         attributes = {
-                @CommandAttribute(key = "music"),
+                @CommandAttribute(key = "music", value = "voice"),
         },
         description = "plays previous song or restarts current song"
 )

@@ -1,8 +1,8 @@
 package life.nekos.bot.commands.owner;
 
-import life.nekos.bot.Command;
 import com.github.rainestormee.jdacommand.CommandAttribute;
 import com.github.rainestormee.jdacommand.CommandDescription;
+import life.nekos.bot.Command;
 import life.nekos.bot.commons.SendNeko;
 import life.nekos.bot.commons.SendPoke;
 import net.dv8tion.jda.core.entities.Message;
@@ -20,7 +20,7 @@ public class CoinCommand implements Command {
 
     @Override
     public void execute(Message trigger, Object... args) {
-        if (args.length > 0){
+        if (args.length > 0) {
             SendPoke.send(trigger, false);
             trigger.delete().queue();
             return;

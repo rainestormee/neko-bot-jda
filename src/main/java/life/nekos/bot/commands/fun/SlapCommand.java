@@ -83,9 +83,9 @@
  */
 package life.nekos.bot.commands.fun;
 
-import life.nekos.bot.Command;
 import com.github.rainestormee.jdacommand.CommandAttribute;
 import com.github.rainestormee.jdacommand.CommandDescription;
+import life.nekos.bot.Command;
 import life.nekos.bot.NekoBot;
 import life.nekos.bot.commons.Colors;
 import life.nekos.bot.commons.Formats;
@@ -104,7 +104,6 @@ import java.util.List;
         attributes = {@CommandAttribute(key = "fun")},
         description = "slap someone ^^"
 )
-@SuppressWarnings("unchecked")
 public class SlapCommand implements Command {
     @Override
     public void execute(Message message, Object... args) {

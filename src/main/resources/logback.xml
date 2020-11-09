@@ -9,7 +9,8 @@
 
         </filter>
         <encoder>
-            <pattern>%boldMagenta([%d{yyyy-MM-dd HH:mm:ss}]) %boldBlue([%thread]) %highlight([ %-5level]) %boldWhite([%logger{32}]) %boldRed(==>) %cyan(%msg) %n
+            <pattern>%boldMagenta([%d{yyyy-MM-dd HH:mm:ss}]) %boldBlue([%thread]) %highlight([ %-5level])
+                %boldWhite([%logger{32}]) %boldRed(==>) %cyan(%msg) %n
             </pattern>
         </encoder>
     </appender>
@@ -37,7 +38,7 @@
         <port>8888</port>
         <reconnectionDelay>10000</reconnectionDelay>
     </appender>
-<!-- web hook -->
+    <!-- web hook -->
 
 
     <!--Root logger-->

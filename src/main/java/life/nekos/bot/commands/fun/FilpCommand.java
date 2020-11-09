@@ -1,8 +1,8 @@
 package life.nekos.bot.commands.fun;
 
-import life.nekos.bot.Command;
 import com.github.rainestormee.jdacommand.CommandAttribute;
 import com.github.rainestormee.jdacommand.CommandDescription;
+import life.nekos.bot.Command;
 import life.nekos.bot.commons.db.Models;
 import net.dv8tion.jda.core.entities.Message;
 

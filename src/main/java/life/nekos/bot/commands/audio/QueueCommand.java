@@ -1,10 +1,10 @@
 package life.nekos.bot.commands.audio;
 
-import life.nekos.bot.Command;
 import com.github.rainestormee.jdacommand.CommandAttribute;
 import com.github.rainestormee.jdacommand.CommandDescription;
 import com.jagrosh.jdautilities.menu.Paginator;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
+import life.nekos.bot.Command;
 import life.nekos.bot.audio.AudioHandler;
 import life.nekos.bot.commons.Colors;
 import life.nekos.bot.commons.Formats;

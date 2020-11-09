@@ -100,7 +100,7 @@ public class EventHandler extends ListenerAdapter {
             }
         }
         System.out.println(Joiner.on("").join(pinglist));
-	    readyClient.send(new WebhookMessageBuilder().setUsername("boot log").setAvatarUrl(jda.getSelfUser().getEffectiveAvatarUrl()).setContent("```\n" + Joiner.on("").join(pinglist) + "\n```\n\n").build());
+        readyClient.send(new WebhookMessageBuilder().setUsername("boot log").setAvatarUrl(jda.getSelfUser().getEffectiveAvatarUrl()).setContent("```\n" + Joiner.on("").join(pinglist) + "\n```\n\n").build());
         NekoBot.log.info(jda.getShardInfo().getShardString());
         // jda.getPresence().setPresence(OnlineStatus.ONLINE, Game.watching("Nekos owo"));
         if (c == jda.asBot().getShardManager().getShardsTotal()) {

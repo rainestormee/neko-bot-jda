@@ -1,8 +1,8 @@
 package life.nekos.bot.commands.nsfw;
 
-import life.nekos.bot.Command;
 import com.github.rainestormee.jdacommand.CommandAttribute;
 import com.github.rainestormee.jdacommand.CommandDescription;
+import life.nekos.bot.Command;
 import life.nekos.bot.NekoBot;
 import life.nekos.bot.commons.Colors;
 import life.nekos.bot.commons.Formats;
@@ -14,7 +14,7 @@ import net.dv8tion.jda.core.entities.Message;
 @CommandDescription(
         name = "pussy",
         triggers = {"pussy"},
-		attributes = {@CommandAttribute(key = "dm"), @CommandAttribute(key = "nsfw"), @CommandAttribute(key = "PayWall")},
+        attributes = {@CommandAttribute(key = "dm"), @CommandAttribute(key = "nsfw"), @CommandAttribute(key = "PayWall")},
         description = "random pussy uwu"
 )
 public class PussyCommand implements Command {
@@ -28,7 +28,7 @@ public class PussyCommand implements Command {
                             new EmbedBuilder()
                                     .setDescription("uwu pussy")
                                     .setColor(Colors.getEffectiveColor(trigger))
-                                    .setImage(Nekos.makeReqAndGetResAsString("pussy","url"))
+                                    .setImage(Nekos.makeReqAndGetResAsString("pussy", "url"))
                                     .build())
                     .queue();
         } catch (Exception e) {

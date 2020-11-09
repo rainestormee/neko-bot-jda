@@ -1,10 +1,10 @@
 package life.nekos.bot.commands.user;
 
-import life.nekos.bot.Command;
 import com.github.rainestormee.jdacommand.CommandAttribute;
 import com.github.rainestormee.jdacommand.CommandDescription;
 import com.jagrosh.jdautilities.menu.Paginator;
 import com.rethinkdb.net.Cursor;
+import life.nekos.bot.Command;
 import life.nekos.bot.commons.Colors;
 import life.nekos.bot.commons.Formats;
 import life.nekos.bot.commons.checks.BotChecks;

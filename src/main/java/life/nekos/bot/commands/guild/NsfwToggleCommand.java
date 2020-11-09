@@ -1,8 +1,8 @@
 package life.nekos.bot.commands.guild;
 
-import life.nekos.bot.Command;
 import com.github.rainestormee.jdacommand.CommandAttribute;
 import com.github.rainestormee.jdacommand.CommandDescription;
+import life.nekos.bot.Command;
 import life.nekos.bot.commons.Formats;
 import life.nekos.bot.commons.checks.BotChecks;
 import net.dv8tion.jda.core.Permission;

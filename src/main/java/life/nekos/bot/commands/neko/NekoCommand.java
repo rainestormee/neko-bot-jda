@@ -1,8 +1,8 @@
 package life.nekos.bot.commands.neko;
 
-import life.nekos.bot.Command;
 import com.github.rainestormee.jdacommand.CommandAttribute;
 import com.github.rainestormee.jdacommand.CommandDescription;
+import life.nekos.bot.Command;
 import life.nekos.bot.NekoBot;
 import life.nekos.bot.commons.Colors;
 import life.nekos.bot.commons.Formats;
@@ -17,7 +17,6 @@ import net.dv8tion.jda.core.entities.Message;
         attributes = {@CommandAttribute(key = "dm"), @CommandAttribute(key = "neko")},
         description = "random nekos owO"
 )
-@SuppressWarnings("unchecked")
 public class NekoCommand implements Command {
     @Override
     public void execute(Message trigger, Object... args) {

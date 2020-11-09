@@ -37,8 +37,8 @@ public class MiscChecks {
                 || message.getContentDisplay().startsWith(Models.getPrefix(message));
     }
 
-    public static boolean isMagicDay(Calendar cal){
-        if(cal.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY || cal.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY){
+    public static boolean isMagicDay(Calendar cal) {
+        if (cal.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY || cal.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
             return true;
         }
         if (cal.get(Calendar.MONTH) == Calendar.JANUARY
@@ -61,7 +61,7 @@ public class MiscChecks {
         }
         if (cal.get(Calendar.MONTH) == Calendar.MAY
                 && cal.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY
-                && cal.get(Calendar.DAY_OF_MONTH) > (31 - 7) ) {
+                && cal.get(Calendar.DAY_OF_MONTH) > (31 - 7)) {
             return true;
         }
         if (cal.get(Calendar.MONTH) == Calendar.SEPTEMBER

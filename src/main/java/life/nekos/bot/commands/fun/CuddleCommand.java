@@ -3,9 +3,9 @@ package life.nekos.bot.commands.fun;
  * Created by Tom on 9/18/2017.
  */
 
-import life.nekos.bot.Command;
 import com.github.rainestormee.jdacommand.CommandAttribute;
 import com.github.rainestormee.jdacommand.CommandDescription;
+import life.nekos.bot.Command;
 import life.nekos.bot.NekoBot;
 import life.nekos.bot.commons.Colors;
 import life.nekos.bot.commons.Formats;

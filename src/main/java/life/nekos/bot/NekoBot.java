@@ -31,17 +31,13 @@ import net.dv8tion.jda.bot.sharding.DefaultShardManagerBuilder;
 import net.dv8tion.jda.core.JDAInfo;
 import net.dv8tion.jda.core.entities.Game;
 import net.dv8tion.jda.core.entities.Message;
-import org.jetbrains.annotations.NotNull;
 import org.slf4j.LoggerFactory;
 
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 import static ch.qos.logback.classic.Level.DEBUG;
 import static ch.qos.logback.classic.Level.INFO;
@@ -56,7 +52,7 @@ public class NekoBot {
     public static ScheduledExecutorService Scheduler = Executors.newSingleThreadScheduledExecutor();
     public static PokeApi pokeApi = new PokeApiClient();
 
-    public static void main( String[] args) throws Exception {
+    public static void main(String[] args) throws Exception {
         NekoBot.Scheduler.scheduleAtFixedRate(Misc.autoAvatar(), 1, 2, TimeUnit.HOURS);
         log.info(JDAInfo.VERSION);
         log.setLevel(INFO);

@@ -1,9 +1,9 @@
 package life.nekos.bot.commands.bot;
 
-import life.nekos.bot.Command;
 import com.github.rainestormee.jdacommand.CommandAttribute;
 import com.github.rainestormee.jdacommand.CommandDescription;
 import com.jagrosh.jdautilities.menu.Paginator;
+import life.nekos.bot.Command;
 import life.nekos.bot.commons.Colors;
 import life.nekos.bot.commons.Formats;
 import life.nekos.bot.commons.db.Models;
@@ -12,7 +12,6 @@ import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.exceptions.PermissionException;
 
 import java.text.MessageFormat;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -52,7 +51,7 @@ public class PingCommand implements Command {
         String args = (String) argo[0];
         if (args.toLowerCase().contains("--all")) {
             List<String> pinglist = new ArrayList<>();
-        Map<JDA, JDA.Status> s = getShards().getStatuses();
+            Map<JDA, JDA.Status> s = getShards().getStatuses();
             pbuilder.clearItems();
             for (Map.Entry<JDA, net.dv8tion.jda.core.JDA.Status> e : s.entrySet()) {
                 if (trigger.getJDA().getShardInfo().getShardId()
@@ -78,11 +77,11 @@ public class PingCommand implements Command {
             return;
         }
 
-	    trigger
-			    .getChannel()
-			    .sendMessage(
-									    "⏳ Ping: " + trigger.getJDA().getPing()
-											    + "ms")
-									    .queue();
+        trigger
+                .getChannel()
+                .sendMessage(
+                        "⏳ Ping: " + trigger.getJDA().getPing()
+                                + "ms")
+                .queue();
     }
 }

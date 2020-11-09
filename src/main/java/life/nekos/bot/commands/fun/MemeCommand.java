@@ -1,9 +1,9 @@
 package life.nekos.
-		bot.commands.fun;
+        bot.commands.fun;
 
-import life.nekos.bot.Command;
 import com.github.rainestormee.jdacommand.CommandAttribute;
 import com.github.rainestormee.jdacommand.CommandDescription;
+import life.nekos.bot.Command;
 import life.nekos.bot.NekoBot;
 import life.nekos.bot.commons.Colors;
 import life.nekos.bot.commons.Formats;
@@ -15,40 +15,40 @@ import net.dv8tion.jda.core.entities.Message;
 import java.awt.*;
 
 @CommandDescription(
-		name = "gecg",
-		triggers = {"gecg", "meme"},
-		attributes = {@CommandAttribute(key = "dm"), @CommandAttribute(key = "fun")},
-		description = "random gecg owO"
+        name = "gecg",
+        triggers = {"gecg", "meme"},
+        attributes = {@CommandAttribute(key = "dm"), @CommandAttribute(key = "fun")},
+        description = "random gecg owO"
 )
 public class MemeCommand implements Command {
-	@Override
-	public void execute(Message trigger, Object... args) {
-		Models.statsUp("gecg");
-		if (!trigger.getTextChannel().isNSFW()) {
-			trigger
-					.getChannel()
-					.sendMessage(
-							new EmbedBuilder()
-									.setColor(Color.magenta)
-									.setDescription(
-											"Lewd nekos are shy nya, They can only be found in Discord nsfw channels")
-									.build())
-					.queue();
-			return;
-		}
-		try {
-			trigger
-					.getChannel()
-					.sendMessage(
-							new EmbedBuilder()
-									.setDescription("owo")
-									.setColor(Colors.getEffectiveColor(trigger))
-									.setImage(Nekos.getMeme())
-									.build())
-					.queue();
-		} catch (Exception e) {
-			trigger.getChannel().sendMessage(Formats.error("oh? something broken nya!")).queue();
-			NekoBot.log.error("lewd command broken? ", e);
-		}
-	}
+    @Override
+    public void execute(Message trigger, Object... args) {
+        Models.statsUp("gecg");
+        if (!trigger.getTextChannel().isNSFW()) {
+            trigger
+                    .getChannel()
+                    .sendMessage(
+                            new EmbedBuilder()
+                                    .setColor(Color.magenta)
+                                    .setDescription(
+                                            "Lewd nekos are shy nya, They can only be found in Discord nsfw channels")
+                                    .build())
+                    .queue();
+            return;
+        }
+        try {
+            trigger
+                    .getChannel()
+                    .sendMessage(
+                            new EmbedBuilder()
+                                    .setDescription("owo")
+                                    .setColor(Colors.getEffectiveColor(trigger))
+                                    .setImage(Nekos.getMeme())
+                                    .build())
+                    .queue();
+        } catch (Exception e) {
+            trigger.getChannel().sendMessage(Formats.error("oh? something broken nya!")).queue();
+            NekoBot.log.error("lewd command broken? ", e);
+        }
+    }
 }

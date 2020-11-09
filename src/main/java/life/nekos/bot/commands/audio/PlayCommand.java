@@ -1,8 +1,8 @@
 package life.nekos.bot.commands.audio;
 
-import life.nekos.bot.Command;
 import com.github.rainestormee.jdacommand.CommandAttribute;
 import com.github.rainestormee.jdacommand.CommandDescription;
+import life.nekos.bot.Command;
 import life.nekos.bot.audio.AudioHandler;
 import life.nekos.bot.audio.GuildMusicManager;
 import life.nekos.bot.commons.Colors;
@@ -106,7 +106,7 @@ public class PlayCommand implements Command {
         } else {
             AudioHandler.loadAndPlay(message, args, false);
             message
-		            .addReaction(message.getJDA().asBot().getShardManager().getEmoteById(Formats.getEmoteID(Formats.PLAY_EMOTE)))
+                    .addReaction(message.getJDA().asBot().getShardManager().getEmoteById(Formats.getEmoteID(Formats.PLAY_EMOTE)))
                     .queue();
         }
     }

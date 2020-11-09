@@ -50,7 +50,7 @@ public class NowPlayingCommand implements Command {
                             message ->
                                     message
                                             .addReaction(
-		                                            message.getJDA().asBot().getShardManager().getEmoteById(Formats.getEmoteID(Formats.PLAY_EMOTE)))
+                                                    message.getJDA().asBot().getShardManager().getEmoteById(Formats.getEmoteID(Formats.PLAY_EMOTE)))
                                             .queue());
         } else
             event
@@ -60,7 +60,7 @@ public class NowPlayingCommand implements Command {
                             message ->
                                     message
                                             .addReaction(
-		                                            message.getJDA().asBot().getShardManager().getEmoteById(Formats.getEmoteID(Formats.PLAY_EMOTE)))
+                                                    message.getJDA().asBot().getShardManager().getEmoteById(Formats.getEmoteID(Formats.PLAY_EMOTE)))
                                             .queue());
     }
 }

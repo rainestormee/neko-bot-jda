@@ -1,8 +1,8 @@
 package life.nekos.bot.commands.fun;
 
-import life.nekos.bot.Command;
 import com.github.rainestormee.jdacommand.CommandAttribute;
 import com.github.rainestormee.jdacommand.CommandDescription;
+import life.nekos.bot.Command;
 import life.nekos.bot.NekoBot;
 import life.nekos.bot.commons.Colors;
 import life.nekos.bot.commons.Formats;
@@ -55,27 +55,27 @@ public class KissCommand implements Command {
                     .getChannel()
                     .sendMessage("💕")
                     .queue(
-                        msg -> {
-                            try {
-                                msg.editMessage(
-                                        new EmbedBuilder()
-                                                .setDescription(
-                                                        String.format(
-                                                                "%s You got a kiss from %s owo",
-                                                                name, message.getMember().getEffectiveName()))
-                                                .setColor(
-                                                        Colors.getEffectiveMemberColor(msg.getGuild().getMember(user)))
-                                                .setImage(Nekos.getKiss())
-                                                .build())
-                                        .queue();
-                            } catch (Exception e) {
-                                NekoBot.log.error("broken kiss? ", e);
-                                if (
-                                        BotChecks.canReact(msg)) {
-                                    msg.addReaction("🚫").queue();
+                            msg -> {
+                                try {
+                                    msg.editMessage(
+                                            new EmbedBuilder()
+                                                    .setDescription(
+                                                            String.format(
+                                                                    "%s You got a kiss from %s owo",
+                                                                    name, message.getMember().getEffectiveName()))
+                                                    .setColor(
+                                                            Colors.getEffectiveMemberColor(msg.getGuild().getMember(user)))
+                                                    .setImage(Nekos.getKiss())
+                                                    .build())
+                                            .queue();
+                                } catch (Exception e) {
+                                    NekoBot.log.error("broken kiss? ", e);
+                                    if (
+                                            BotChecks.canReact(msg)) {
+                                        msg.addReaction("🚫").queue();
+                                    }
                                 }
-                            }
-                        });
+                            });
         }
     }
 }

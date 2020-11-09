@@ -1,10 +1,10 @@
 package life.nekos.bot.commands.owner;
 
-import life.nekos.bot.Command;
 import com.github.rainestormee.jdacommand.CommandAttribute;
 import com.github.rainestormee.jdacommand.CommandDescription;
 import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
+import life.nekos.bot.Command;
 import life.nekos.bot.commons.Colors;
 import life.nekos.bot.commons.Constants;
 import life.nekos.bot.commons.Formats;
